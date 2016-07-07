@@ -5,6 +5,8 @@ namespace PaperG\FirehoundBlob;
 
 class BasicInfo implements BlobInterface
 {
+    use Utility;
+
     const NAME = "name";
     const UUID = "uuid";
     const METADATA = "metadata";
@@ -38,11 +40,6 @@ class BasicInfo implements BlobInterface
      * @var BlobInterface
      */
     private $blob;
-
-    /**
-     * @var int
-     */
-    private $version;
 
     public function __construct() {}
 
@@ -126,14 +123,6 @@ class BasicInfo implements BlobInterface
         return $this->uuid;
     }
 
-    public function getVersion() {
-        return $this->version;
-    }
-
-    public function setVersion($version) {
-        $this->version = $version;
-    }
-
     public function toArray()
     {
         return [
@@ -142,7 +131,7 @@ class BasicInfo implements BlobInterface
             self::METADATA => $this->getMetadata(),
             self::SCENARIO => $this->getScenario(),
             self::BLOB => isset($this->blob) ? $this->getBlob()->toArray() : null,
-            self::VERSION => isset($this->version) ? $this->version : self::CURRENT_VERSION
+            self::VERSION => self::CURRENT_VERSION
         ];
     }
 
@@ -153,12 +142,6 @@ class BasicInfo implements BlobInterface
         $this->setMetadata($this->safeGet($array, self::METADATA));
         $this->setScenario($this->safeGet($array, self::SCENARIO));
         $this->setBlob($this->safeGet($array, self::BLOB));
-        $this->setVersion($this->safeGet($array, self::VERSION));
-    }
-
-    private function safeGet($array, $key)
-    {
-        return isset($array[$key]) ? $array[$key] : null;
     }
 
     public function validate()
