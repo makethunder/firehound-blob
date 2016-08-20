@@ -15,7 +15,7 @@ class DcmCreativeAsset
     const IMAGE_URL = 'imageUrl';
     const WIDTH = 'width';
     const HEIGHT = 'height';
-    const PLATFORM = 'platform';
+    const AD_SET_NAME = 'adSetName';
 
     /**
      * @var string
@@ -45,12 +45,12 @@ class DcmCreativeAsset
     /**
      * @var string
      */
-    private $platform;
+    private $name;
 
     /**
      * @var string
      */
-    private $name;
+    private $adSetName;
 
     public function __construct($array = [])
     {
@@ -66,7 +66,7 @@ class DcmCreativeAsset
             self::IMAGE_URL => $this->imageUrl,
             self::WIDTH => $this->width,
             self::HEIGHT => $this->height,
-            self::PLATFORM => $this->platform
+            self::AD_SET_NAME => $this->adSetName
         ];
     }
 
@@ -78,7 +78,7 @@ class DcmCreativeAsset
         $this->imageUrl = $this->safeGet($array, self::IMAGE_URL);
         $this->width = $this->safeGet($array, self::WIDTH);
         $this->height = $this->safeGet($array, self::HEIGHT);
-        $this->platform = $this->safeGet($array, self::PLATFORM);
+        $this->adSetName = $this->safeGet($array, self::AD_SET_NAME);
     }
 
     /**
@@ -177,19 +177,13 @@ class DcmCreativeAsset
         return $this->width;
     }
 
-    /**
-     * @return string
-     */
-    public function getPlatform()
+    public function setAdSetName($adSet)
     {
-        return $this->platform;
+        $this->adSetName = $adSet;
     }
 
-    /**
-     * @param $platform
-     */
-    public function setPlatform($platform)
+    public function getAdSetName()
     {
-        $this->platform = $platform;
+        return $this->adSetName;
     }
 } 
