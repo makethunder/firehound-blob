@@ -115,10 +115,10 @@ class DcmCreativeAssetValidator
             $messages[] = 'Name must be a string.';
         }
 
-        $platform = $asset->getPlatform();
-        if (!empty($platform) && !is_string($platform)) {
+        $adSetName = $asset->getAdSetName();
+        if (!empty($adSetName) && !is_string($adSetName)) {
             $valid = false;
-            $messages[] = 'Platform must be a string';
+            $messages[] = 'Ad set name must be a string';
         }
 
         return new ValidationResult($valid, implode(" ", $messages));
