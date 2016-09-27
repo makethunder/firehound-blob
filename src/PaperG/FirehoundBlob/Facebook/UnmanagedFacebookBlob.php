@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: allentsai
- * Date: 7/6/16
- * Time: 2:32 PM
- */
 
 namespace PaperG\FirehoundBlob\Facebook;
 
@@ -32,6 +26,7 @@ class UnmanagedFacebookBlob implements BlobInterface
     const AD_SETS = 'adSets';
     const CREATIVES = 'creatives';
     const BUDGET = 'budget';
+    const PUBLICATION_NAME = 'publicationName';
     const VERSION = 'version';
 
     const CURRENT_VERSION = 1;
@@ -100,6 +95,11 @@ class UnmanagedFacebookBlob implements BlobInterface
      * @var Budget
      */
     private $budget;
+
+    /**
+     * @var string
+     */
+    private $publicationName;
 
     public function __construct($array = null)
     {
@@ -314,6 +314,16 @@ class UnmanagedFacebookBlob implements BlobInterface
         $this->budget = $budget;
     }
 
+    public function getPublicationName()
+    {
+        return $this->publicationName;
+    }
+
+    public function setPublicationName($name)
+    {
+        $this->publicationName = $name;
+    }
+
     /**
      * @return array
      */
@@ -334,6 +344,7 @@ class UnmanagedFacebookBlob implements BlobInterface
             self::PAGE_ID               => $this->pageId,
             self::ACCESS_TOKEN          => $this->accessToken,
             self::BUDGET                => isset($this->budget) ? $this->budget->toArray() : null,
+            self::PUBLICATION_NAME      => $this->publicationName,
             self::VERSION               => self::CURRENT_VERSION
         ];
         $adSets = null;
@@ -400,5 +411,6 @@ class UnmanagedFacebookBlob implements BlobInterface
         $budget = new Budget(null);
         $budget->fromArray($this->safeGet($array, self::BUDGET));
         $this->budget  = $budget;
+        $this->publicationName = $this->safeGet($array, self::PUBLICATION_NAME);
     }
 }
