@@ -8,6 +8,9 @@ use PaperG\FirehoundBlob\CampaignData\ExchangeTargeting;
 use PaperG\FirehoundBlob\CampaignData\PlatformTargeting;
 use PaperG\FirehoundBlob\CampaignData\Targeting;
 use PaperG\FirehoundBlob\CampaignData\Context;
+use PaperG\FirehoundBlob\Facebook\CreativeData\FacebookCarouselCreativeData;
+use PaperG\FirehoundBlob\Facebook\FacebookCreativeData;
+use PaperG\FirehoundBlob\Facebook\Values\FacebookAdType;
 
 class FirehoundBlob
 {
@@ -82,7 +85,7 @@ class FirehoundBlob
     protected $exchangeTargeting = null;
 
     /**
-     * @var null|CampaignData\Creative[]
+     * @var null|CampaignData\Creative[]|FacebookCreativeData[]
      */
     protected $creatives = null;
 
@@ -172,12 +175,20 @@ class FirehoundBlob
     {
         $creatives = null;
         if (is_array($this->creatives)) {
+            $adType = $this->getContextByKey(Context::FACEBOOK_AD_TYPE);
             $creatives = [];
-            /**
-             * @var $creative Creative
-             */
             foreach ($this->creatives as $creative) {
-                $creatives[] = $creative->toAssociativeArray();
+                if ($adType === FacebookAdType::CAROUSEL) {
+                    /**
+                     * @var $creative FacebookCarouselCreativeData
+                     */
+                    $creatives[] = $creative->toArray();
+                } else {
+                    /**
+                     * @var $creative Creative
+                     */
+                    $creatives[] = $creative->toAssociativeArray();
+                }
             }
         }
 
@@ -207,10 +218,10 @@ class FirehoundBlob
         $exchangeTargeting = isset($firehoundBlobArray[self::EXCHANGE_TARGETING]) ? ExchangeTargeting::fromAssociativeArray(
             $firehoundBlobArray[self::EXCHANGE_TARGETING]
         ) : null;
-        $creative = self::getCreativeFromBlobArray($firehoundBlobArray);
         $context = isset($firehoundBlobArray[self::CONTEXT]) ? Context::fromAssociativeArray(
             $firehoundBlobArray[self::CONTEXT]
         ) : null;
+        $creative = self::getCreativeFromBlobArray($firehoundBlobArray, $context);
 
         $firehoundBlob = new FirehoundBlob(
             $name,
@@ -228,7 +239,7 @@ class FirehoundBlob
         return $firehoundBlob;
     }
 
-    private static function  getCreativeFromBlobArray($array)
+    private static function getCreativeFromBlobArray($array, Context $context = null)
     {
         $creativeArray = null;
         if (isset($array[self::CREATIVES])) {
@@ -236,7 +247,12 @@ class FirehoundBlob
             if (is_array($creatives)) {
                 foreach ($creatives as $creative) {
                     if (is_array($creative)) {
-                        $creativeArray[] = Creative::fromAssociativeArray($creative);
+                        if (!empty($context)
+                            && $context->getValueByKey(Context::FACEBOOK_AD_TYPE) === FacebookAdType::CAROUSEL) {
+                            $creativeArray[] = new FacebookCarouselCreativeData($creative);
+                        } else {
+                            $creativeArray[] = Creative::fromAssociativeArray($creative);
+                        }
                     }
                 }
 

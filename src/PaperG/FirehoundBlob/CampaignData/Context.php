@@ -28,6 +28,7 @@ class Context
     CONST AUDIENCE_GROUPS            = "audienceGroups"; //CampaignAudienceGroups
     CONST APPNEXUS_OBJECT_INCLUSIONS = "appnexusObjectInclusions"; //an AppNexus specific component to specify which objects to update
     CONST FACEBOOK_CONTEXT          = "facebookContext";
+    const FACEBOOK_AD_TYPE          = 'facebookAdType';
 
     //These are values used mostly by AppNexus
     CONST PUBLICATION_NAME          = "publicationName"; //string
