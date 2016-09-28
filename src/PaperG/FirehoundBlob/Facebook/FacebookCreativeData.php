@@ -237,4 +237,10 @@ class FacebookCreativeData implements BlobInterface
         $this->description = $this->safeGet($array, self::DESCRIPTION);
         $this->variationId = $this->safeGet($array, self::VARIATION_ID);
     }
+
+    //No validation yet
+    public function isValid()
+    {
+        return true;
+    }
 } 
