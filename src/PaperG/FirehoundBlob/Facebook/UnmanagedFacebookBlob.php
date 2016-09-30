@@ -27,6 +27,7 @@ class UnmanagedFacebookBlob implements BlobInterface
     const CREATIVES = 'creatives';
     const BUDGET = 'budget';
     const PUBLICATION_NAME = 'publicationName';
+    const IG_ACTOR_ID = 'igActorId';
     const VERSION = 'version';
 
     const CURRENT_VERSION = 1;
@@ -100,6 +101,11 @@ class UnmanagedFacebookBlob implements BlobInterface
      * @var string
      */
     private $publicationName;
+
+    /**
+     * @var string
+     */
+    private $igActorId;
 
     public function __construct($array = null)
     {
@@ -325,6 +331,22 @@ class UnmanagedFacebookBlob implements BlobInterface
     }
 
     /**
+     * @return string
+     */
+    public function getIgActorId()
+    {
+        return $this->igActorId;
+    }
+
+    /**
+     * @param string $igActorId
+     */
+    public function setIgActorId($igActorId)
+    {
+        $this->igActorId = $igActorId;
+    }
+
+    /**
      * @return array
      */
     public function toArray()
@@ -345,6 +367,7 @@ class UnmanagedFacebookBlob implements BlobInterface
             self::ACCESS_TOKEN          => $this->accessToken,
             self::BUDGET                => isset($this->budget) ? $this->budget->toArray() : null,
             self::PUBLICATION_NAME      => $this->publicationName,
+            self::IG_ACTOR_ID           => $this->igActorId,
             self::VERSION               => self::CURRENT_VERSION
         ];
         $adSets = null;
@@ -390,6 +413,7 @@ class UnmanagedFacebookBlob implements BlobInterface
         $this->adAccountId          = $this->safeGet($array, self::AD_ACCOUNT_ID);
         $this->pageId               = $this->safeGet($array, self::PAGE_ID);
         $this->accessToken          = $this->safeGet($array, self::ACCESS_TOKEN);
+        $this->igActorId            = $this->safeGet($array, self::IG_ACTOR_ID);
 
         $creatives = $this->safeGet($array, self::CREATIVES, []);
         $this->creatives = [];
