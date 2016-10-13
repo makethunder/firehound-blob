@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: allentsai
- * Date: 7/6/16
- * Time: 2:32 PM
- */
 
 namespace PaperG\FirehoundBlob\Facebook;
 
@@ -32,6 +26,7 @@ class UnmanagedFacebookBlob implements BlobInterface
     const AD_SETS = 'adSets';
     const CREATIVES = 'creatives';
     const BUDGET = 'budget';
+    const PUBLICATION_NAME = 'publicationName';
     const IG_ACTOR_ID = 'igActorId';
     const VERSION = 'version';
 
@@ -101,6 +96,11 @@ class UnmanagedFacebookBlob implements BlobInterface
      * @var Budget
      */
     private $budget;
+
+    /**
+     * @var string
+     */
+    private $publicationName;
 
     /**
      * @var string
@@ -320,6 +320,16 @@ class UnmanagedFacebookBlob implements BlobInterface
         $this->budget = $budget;
     }
 
+    public function getPublicationName()
+    {
+        return $this->publicationName;
+    }
+
+    public function setPublicationName($name)
+    {
+        $this->publicationName = $name;
+    }
+
     /**
      * @return string
      */
@@ -356,6 +366,7 @@ class UnmanagedFacebookBlob implements BlobInterface
             self::PAGE_ID               => $this->pageId,
             self::ACCESS_TOKEN          => $this->accessToken,
             self::BUDGET                => isset($this->budget) ? $this->budget->toArray() : null,
+            self::PUBLICATION_NAME      => $this->publicationName,
             self::IG_ACTOR_ID           => $this->igActorId,
             self::VERSION               => self::CURRENT_VERSION
         ];
@@ -423,6 +434,7 @@ class UnmanagedFacebookBlob implements BlobInterface
             $adSetResults[] = $adSet;
         }
         $this->adSets   = $adSetResults; // versioned, might need builder
+
         $budget = $this->safeGet($array, self::BUDGET);
         if (!empty($budget))
         {
@@ -430,5 +442,6 @@ class UnmanagedFacebookBlob implements BlobInterface
             $budget->fromArray($this->safeGet($array, self::BUDGET));
             $this->budget  = $budget;
         }
+        $this->publicationName = $this->safeGet($array, self::PUBLICATION_NAME);
     }
 }
