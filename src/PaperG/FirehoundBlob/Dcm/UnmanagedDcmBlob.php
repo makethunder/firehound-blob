@@ -11,6 +11,7 @@ class UnmanagedDcmBlob implements BlobInterface
     use Utility;
 
     const PUBLICATION_ID = 'publicationId';
+    const PLACELOCAL_CAMPAIGN_ID = 'placelocalCampaignId';
     const GOOGLE_ADVERTISER_ID = 'googleAdvertiserId';
     const CREATIVE_ASSETS = 'creativeAssets';
     const STATUS_CALLBACK_URL = 'callbackUrl';
@@ -25,6 +26,11 @@ class UnmanagedDcmBlob implements BlobInterface
      * @var int
      */
     private $advertiserId;
+
+    /**
+     * @var int
+     */
+    private $placelocalCampaignId;
 
     /**
      * @var DcmCreativeAsset[]
@@ -51,12 +57,14 @@ class UnmanagedDcmBlob implements BlobInterface
             self::GOOGLE_ADVERTISER_ID => $this->advertiserId,
             self::CREATIVE_ASSETS => $assets,
             self::STATUS_CALLBACK_URL => $this->statusCallbackUrl,
-            self::STATUS_CALLBACK_HEADERS => $this->statusCallbackHeaders
+            self::STATUS_CALLBACK_HEADERS => $this->statusCallbackHeaders,
+            self::PLACELOCAL_CAMPAIGN_ID => $this->placelocalCampaignId
         ];
     }
 
     public function fromArray($array)
     {
+        $this->placelocalCampaignId = $this->safeGet($array, self::PLACELOCAL_CAMPAIGN_ID);
         $this->publicationId = $this->safeGet($array, self::PUBLICATION_ID);
         $this->advertiserId = $this->safeGet($array, self::GOOGLE_ADVERTISER_ID);
         $assets = $this->safeGet($array, self::CREATIVE_ASSETS, []);
@@ -67,6 +75,22 @@ class UnmanagedDcmBlob implements BlobInterface
         foreach($assets as $assetArray) {
             $this->creativeAssets[] = new DcmCreativeAsset($assetArray);
         }
+    }
+
+    /**
+     * @param int $placelocalCampaignId
+     */
+    public function setPlacelocalCampaignId($placelocalCampaignId)
+    {
+        $this->placelocalCampaignId = $placelocalCampaignId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPlacelocalCampaignId()
+    {
+        return $this->placelocalCampaignId;
     }
 
     /**

@@ -3,16 +3,28 @@
     "type": "object",
     "properties": {
         "minAge": {
-            "type": "number",
-            "minimum": 18
+            "oneOf":[
+                {
+                    "type": "number",
+                    "minimum": 18
+                },
+                {"type": "null"}
+            ]
         },
         "maxAge": {
-            "type": "number",
-            "maximum": 65
+            "oneOf": [
+                {
+                    "type": "number",
+                    "maximum": 65
+                },
+                {"type": "null"}
+            ]
         },
         "gender": {
-            "enum": ["male", "female", "null"]
+            "oneOf": [
+                {"enum": ["male", "female"]},
+                {"type": "null"}
+            ]
         }
-    },
-    "required": ["type", "ids"]
+    }
 }
