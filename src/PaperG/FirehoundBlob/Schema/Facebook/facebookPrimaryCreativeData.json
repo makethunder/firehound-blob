@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "media_url": {"type": ["string", "null"]},
+        "call_to_action": {"type": ["string", "null"]},
+        "message":  {"type": ["string", "null"]},
+        "caption": {"type": ["string", "null"]},
+        "landing_page": {"type": ["string", "null"]},
+        "name": {"type": ["string", "null"]},
+        "description": {"type": ["string", "null"]},
+        "variation_id": {"type": ["string", "null"]}
+    }
+}
