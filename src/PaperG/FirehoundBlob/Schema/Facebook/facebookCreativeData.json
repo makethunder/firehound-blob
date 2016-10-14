@@ -1,14 +1,16 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
-    "type": "object",
-    "properties": {
-        "media_url": {"type": "string"},
-        "call_to_action": {"type": ["string", "null"]},
-        "message":  {"type": ["string", "null"]},
-        "caption": {"type": ["string", "null"]},
-        "landing_page": {"type": ["string", "null"]},
-        "name": {"type": "string"},
-        "description": {"type": ["string", "null"]},
-        "variation_id": {"type": ["string", "null"]}
-    }
+    "definitions": {
+        "primaryCreativeData": {"$ref": "facebookPrimaryCreativeData.json"}
+    },
+    "type":"object",
+    "allOf": [
+        {"$ref": "#definitions/primaryCreativeData"},
+        {
+            "properties": {
+                "media_url": {"type": "string"},
+                "name": {"type": "string"}
+            }
+        }
+    ]
 }

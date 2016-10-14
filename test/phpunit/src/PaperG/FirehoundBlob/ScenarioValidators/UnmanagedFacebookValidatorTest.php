@@ -16,7 +16,7 @@ use PaperG\FirehoundBlob\Facebook\FacebookCreativeData;
 use PaperG\FirehoundBlob\Facebook\UnmanagedFacebookBlob;
 use PaperG\FirehoundBlob\ScenarioValidators\UnmanagedFacebookValidator;
 
-class UnmanagedFacebookValidatorTest extends \PHPUnit_Framework_TestCase
+class UnmanagedFacebookValidatorTest extends \FirehoundBlobTestCase
 {
     /**
      * @var UnmanagedFacebookValidator
@@ -90,6 +90,15 @@ class UnmanagedFacebookValidatorTest extends \PHPUnit_Framework_TestCase
                                     ->getMock();
         $mockCreative        = $this->getMockBuilder('PaperG\FirehoundBlob\Facebook\FacebookCreative')->disableOriginalConstructor()
                                     ->getMock();
+        $mockCreativeArray = [
+            "primary" => [
+                "name" => "name",
+                "media_url" => "media url"
+            ],
+            "type" => "link",
+            "child_attachments" => null
+        ];
+        $this->addExpectation($mockCreative, $this->once(), 'toArray', null, $mockCreativeArray);
 
         $mockBudget = new Budget("invalid", "impression", "lifetime");
 
@@ -117,8 +126,7 @@ class UnmanagedFacebookValidatorTest extends \PHPUnit_Framework_TestCase
             . '[budget.type] Does not have a value in the enumeration ["dollar"]. [budget] Failed to match all schemas. '
             . '[budget] Object value found, but a null is required. [budget] Failed to match exactly one schema. '
             . '[adSets[0]] NULL value found, but an object is required. [adSets] Array value found, but a null is required. '
-            . '[adSets] Failed to match exactly one schema. [creatives[0]] NULL value found, but an object is required. '
-            . '[creatives] Array value found, but a null is required. [creatives] Failed to match exactly one schema. '
+            . '[adSets] Failed to match exactly one schema. '
             . '[status] Does not have a value in the enumeration ["active","inactive"]. '
             . '[] Failed to match all schemas.',
             $results->getMessage()
@@ -162,6 +170,7 @@ class UnmanagedFacebookValidatorTest extends \PHPUnit_Framework_TestCase
             . '[budget] Failed to match exactly one schema. [adSets[0]] NULL value found, but an object is required. '
             . '[adSets] Array value found, but a null is required. [adSets] Failed to match exactly one schema. '
             . '[creatives[0]] NULL value found, but an object is required. '
+            . '[creatives[0]] Failed to match exactly one schema. '
             . '[creatives] Array value found, but a null is required. [creatives] Failed to match exactly one schema. '
             . '[status] Does not have a value in the enumeration ["active","inactive"]. '
             . '[status] String value found, but a null is required. [status] Failed to match exactly one schema. '
