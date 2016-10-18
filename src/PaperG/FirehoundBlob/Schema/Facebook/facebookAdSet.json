@@ -5,8 +5,12 @@
         "optimizationGoal": {"type": ["string", "null"]},
         "bidAmount": {"type": ["number", "null"]},
         "placements": {
-            "type": ["array", "null"],
-            "items": {"type": "string"}
+            "type": ["object", "null"],
+            "properties": {
+                "publisher_platforms": {"type": ["array", "null"]},
+                "facebook_positions": {"type": ["array", "null"]},
+                "device_platforms": {"type": ["array", "null"]}
+            }
         },
         "adSetId": {"type": ["string", "null"]},
         "type": {"type":["string", "null"]}
