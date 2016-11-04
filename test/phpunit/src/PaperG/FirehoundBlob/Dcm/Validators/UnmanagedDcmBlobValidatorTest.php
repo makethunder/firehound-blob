@@ -50,6 +50,7 @@ class UnmanagedDcmBlobValidatorTest extends \FirehoundBlobTestCase
         $this->addExpectation($mockValidationResult, $this->once(), 'getResult', null, true);
         $this->addExpectation($this->mockValidator, $this->once(), 'isValidUpdate', null, $mockValidationResult);
         $dcmBlob = new UnmanagedDcmBlob();
+        $dcmBlob->setPlacelocalCampaignId(321);
         $dcmBlob->setAdvertiserId(1234);
         $dcmBlob->setCreativeAssets($mockAssets);
         $dcmBlob->setPublicationId(1234);
