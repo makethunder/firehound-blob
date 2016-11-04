@@ -5,6 +5,7 @@
         "creativeAsset": {"$ref": "dcmCreativeAsset.json"}
     },
     "properties": {
+        "placelocalCampaignId": {"type": "number"},
         "publicationId": {"type": "number"},
         "googleAdvertiserId": {"type": "number"},
         "creativeAssets": {
