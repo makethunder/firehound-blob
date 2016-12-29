@@ -52,7 +52,8 @@ class FacebookContextTest extends FirehoundBlobTestCase
                 $mockAdSetArray
             ),
             FacebookContext::ACCESS_TOKEN => null,
-            FacebookContext::IG_ACTOR_ID => $mockIgActorId
+            FacebookContext::IG_ACTOR_ID => $mockIgActorId,
+            FacebookContext::CAMPAIGN_OBJECTIVE => null
         );
         $associativeArray = $facebookContext->toAssociativeArray();
         $this->assertEquals($expectedArray, $associativeArray);

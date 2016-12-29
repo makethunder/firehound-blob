@@ -29,6 +29,7 @@ class UnmanagedFacebookBlob implements BlobInterface
     const PUBLICATION_NAME = 'publicationName';
     const IG_ACTOR_ID = 'igActorId';
     const VERSION = 'version';
+    const CAMPAIGN_OBJECTIVE = 'campaignObjective';
 
     const CURRENT_VERSION = 1;
 
@@ -106,6 +107,11 @@ class UnmanagedFacebookBlob implements BlobInterface
      * @var string
      */
     private $igActorId;
+
+    /**
+     * @var string
+     */
+    private $campaignObjective;
 
     public function __construct($array = null)
     {
@@ -352,23 +358,24 @@ class UnmanagedFacebookBlob implements BlobInterface
     public function toArray()
     {
         $array  = [
-            self::STATUS                => $this->status,
-            self::START_DATE            => $this->startDate,
-            self::END_DATE              => $this->endDate,
-            self::GEOGRAPHIC_TARGETING  => isset($this->geographicTargeting)
+            self::STATUS => $this->status,
+            self::START_DATE => $this->startDate,
+            self::END_DATE => $this->endDate,
+            self::GEOGRAPHIC_TARGETING => isset($this->geographicTargeting)
                     ? $this->geographicTargeting->toArray() : null,
             self::DEMOGRAPHIC_TARGETING => isset($this->demographicTargeting)
                     ? $this->demographicTargeting->toArray() : null,
-            self::AUDIENCE_TARGETING    => isset($this->audienceTargeting)
+            self::AUDIENCE_TARGETING => isset($this->audienceTargeting)
                     ? $this->audienceTargeting->toArray() : null,
-            self::OBJECTS_TO_UPDATE     => $this->objectsToUpdate,
-            self::AD_ACCOUNT_ID         => $this->adAccountId,
-            self::PAGE_ID               => $this->pageId,
-            self::ACCESS_TOKEN          => $this->accessToken,
-            self::BUDGET                => isset($this->budget) ? $this->budget->toArray() : null,
-            self::PUBLICATION_NAME      => $this->publicationName,
-            self::IG_ACTOR_ID           => $this->igActorId,
-            self::VERSION               => self::CURRENT_VERSION
+            self::OBJECTS_TO_UPDATE => $this->objectsToUpdate,
+            self::AD_ACCOUNT_ID => $this->adAccountId,
+            self::PAGE_ID => $this->pageId,
+            self::ACCESS_TOKEN => $this->accessToken,
+            self::BUDGET => isset($this->budget) ? $this->budget->toArray() : null,
+            self::PUBLICATION_NAME => $this->publicationName,
+            self::IG_ACTOR_ID => $this->igActorId,
+            self::CAMPAIGN_OBJECTIVE => $this->campaignObjective,
+            self::VERSION => self::CURRENT_VERSION
         ];
         $adSets = null;
         if (!empty($this->adSets)) {
@@ -445,5 +452,6 @@ class UnmanagedFacebookBlob implements BlobInterface
             $this->budget  = $budget;
         }
         $this->publicationName = $this->safeGet($array, self::PUBLICATION_NAME);
+        $this->campaignObjective = $this->safeGet($array, self::CAMPAIGN_OBJECTIVE);
     }
 }

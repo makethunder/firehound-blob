@@ -3,19 +3,24 @@ namespace PaperG\FirehoundBlob\CampaignData\Context;
 
 
 use PaperG\FirehoundBlob\Facebook\FacebookAdSet;
+use PaperG\FirehoundBlob\Utility;
 
 class FacebookContext
 {
+    use Utility;
+
     const AD_ACCOUNT_ID = "adAccountId";
     const AD_SETS = "adSets";
     const PAGE_ID = "pageId";
     const ACCESS_TOKEN = "accessToken";
     const IG_ACTOR_ID = "igActorId";
+    const CAMPAIGN_OBJECTIVE = "campaignObjective";
 
     private $adAccountId = null;
     private $pageId = null;
     private $accessToken = null;
     private $igActorId = null;
+    private $campaignObjective = null;
 
     /**
      * @var FacebookAdSet[]
@@ -75,6 +80,16 @@ class FacebookContext
         return $this->adSets;
     }
 
+    public function setCampaignObjective($objective)
+    {
+        $this->campaignObjective = $objective;
+    }
+
+    public function getCampaignObjective()
+    {
+        return $this->campaignObjective;
+    }
+
     public function toAssociativeArray()
     {
         $adSets = array();
@@ -88,16 +103,18 @@ class FacebookContext
             self::AD_SETS => $adSets,
             self::PAGE_ID => $this->pageId,
             self::ACCESS_TOKEN => $this->accessToken,
-            self::IG_ACTOR_ID => $this->igActorId
+            self::IG_ACTOR_ID => $this->igActorId,
+            self::CAMPAIGN_OBJECTIVE => $this->campaignObjective
         );
     }
 
     public function fromAssociativeArray($array)
     {
-        $this->adAccountId = isset($array[self::AD_ACCOUNT_ID]) ? $array[self::AD_ACCOUNT_ID] : null;
-        $this->pageId = isset($array[self::PAGE_ID]) ? $array[self::PAGE_ID] : null;
-        $this->accessToken = isset($array[self::ACCESS_TOKEN]) ? $array[self::ACCESS_TOKEN] : null;
-        $this->igActorId = isset($array[self::IG_ACTOR_ID]) ? $array[self::IG_ACTOR_ID] : null;
+        $this->adAccountId = $this->safeGet($array, self::AD_ACCOUNT_ID);
+        $this->pageId = $this->safeGet($array, self::PAGE_ID);
+        $this->accessToken = $this->safeGet($array, self::ACCESS_TOKEN);
+        $this->igActorId = $this->safeGet($array, self::IG_ACTOR_ID);
+        $this->campaignObjective = $this->safeGet($array, self::CAMPAIGN_OBJECTIVE);
 
         $adSets = array();
         if (isset($array[self::AD_SETS])) {
