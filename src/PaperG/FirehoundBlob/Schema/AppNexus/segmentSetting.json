@@ -1,0 +1,8 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "add": {"type": "array", "items": "number"},
+        "remove": {"type": "array", "items": "number"}
+    }
+}

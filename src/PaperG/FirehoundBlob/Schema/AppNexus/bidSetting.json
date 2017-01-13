@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "bidType": {
+            "type": "string"
+        },
+        "cpcGoal": {
+            "type": "number"
+        },
+        "baseBid": {
+            "type": "number"
+        },
+        "bidMultiplier": {
+            "type": "number"
+        },
+        "learnOverrideType": {
+            "type": "string"
+        },
+        "learnOverrideImpressionLimit": {
+            "type": "number"
+        },
+        "cpmMin": {
+            "type": "number"
+        },
+        "cpmMax": {
+            "type": "number"
+        },
+        "baseCpmBidValue": {
+            "type": "number"
+        },
+        "cadenceModifierEnabled": {
+            "type": "boolean"
+        },
+        "cadenceType": {
+            "type": "string"
+        }
+    }
+}

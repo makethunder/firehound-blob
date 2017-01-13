@@ -323,9 +323,8 @@ class CampaignGeoTargetingData
                 $this->cityTargetIds = $campaignGeoTargetingObj[self::CITY_TARGET_IDS];
             }
 
-            if (isset($campaignGeoTargetingObj[self::CITY_TARGET_RADII]) && is_array(
-                    $campaignGeoTargetingObj[self::CITY_TARGET_RADII]
-                )
+            if (isset($campaignGeoTargetingObj[self::CITY_TARGET_RADII])
+                && is_array($campaignGeoTargetingObj[self::CITY_TARGET_RADII])
             ) {
                 foreach ($campaignGeoTargetingObj[self::CITY_TARGET_RADII] as $cityRadius) {
                     $this->cityTargetRadii[] = new CityRadius($cityRadius);

@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "industryToQueryString": {"type": ["string", "null"]},
+        "industryIds": {
+            "type" : ["array", "null"],
+            "items": {"type": "number"}
+        },
+        "audienceGroupToInventoryGroup": {
+            "type": ["boolean", "null"]
+        },
+        "directExchangePubId": {
+            "type": ["number", "null"]
+        }
+    }
+}

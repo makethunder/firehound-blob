@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "definitions": {
+        "bidSetting": {"$ref": "bidSetting.json"},
+        "budget": {"$ref": "../CampaignData/budget.json"},
+        "creative": {"$ref": "../CampaignData/creative.json"},
+        "daypartTargeting": {"$ref": "daypartTargeting.json"},
+        "geotargeting": {"$ref": "../CampaignData/campaignGeotargetingData.json"},
+        "publisherCustomizations": {"$ref": "publisherCustomization.json"},
+        "segmentSetting": {"$ref": "publisherCustomization.json"}
+    },
+    "properties": {
+        "applyAudienceBlacklist":{"type": "boolean"},
+        "applyNormalBlacklist":{"type": "boolean"},
+        "audienceGroupIds":{"type": "array", "items": {"type":"number"}},
+        "bidSetting": {"$ref": "#/definitions/bidSetting"},
+        "budget": {"$ref": "#/definitions/budget"},
+        "campaignId": {"type": "number"},
+        "creative": {"$ref": "#/definitions/creative"},
+        "customizationName":{
+            "oneOf": [
+                {
+                    "type":{
+                        "enum":["YPG", "DEX", ""]
+                    }
+                },
+                {"type": "null"}
+            ]
+        },
+        "daypartTargeting": {"$ref": "#/definitions/daypartTargeting"},
+        "endDate":{"type": "number"},
+        "geographicTargeting":{"$ref": "#/definitions/geotargeting"},
+        "languages": {"type":"array", "items":{"type":"string"}},
+        "publicationId": {"type": "number"},
+        "publicationName": {"type": "string"},
+        "publisherCustomizations": {"$ref": "#/definitions/publisherCustomizations"},
+        "audienceSegments": {"$ref": "#/definitions/segmentSetting"},
+        "normalSegments": {"$ref": "#/definitions/segmentSetting"},
+        "startDate": {"type": "number"},
+        "status":{"type": "string"},
+        "type": {"type": "string"}
+    }
+}

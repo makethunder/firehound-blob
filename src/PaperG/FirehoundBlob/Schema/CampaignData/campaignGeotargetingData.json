@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "definitions": {
+        "action": {"enum":["include", "exclude"]},
+        "targets": {"type": "array", "minItems": 1}
+    },
+    "anyOf":[
+        {
+            "properties": {
+                "country_action": {"$ref": "#/definitions/action"},
+                "country_targets": {"$ref": "#/definitions/targets"}
+            },
+            "required": ["country_action"]
+        },
+        {
+            "properties": {
+                "city_action": {"$ref": "#/definitions/action"},
+                "city_targets": {"$ref": "#/definitions/targets"}
+            },
+            "required": ["city_action"]
+        },
+        {
+            "properties": {
+                "city_action": {"$ref": "#/definitions/action"},
+                "city_target_ids": {"$ref": "#/definitions/targets"}
+            },
+            "required": ["city_action"]
+        },
+        {
+            "properties": {
+                "city_action": {"$ref": "#/definitions/action"},
+                "city_target_radii": {
+                    "type": "array",
+                    "items": {
+                        "properties": {
+                            "cityId": {
+                                "type": "number"
+                            },
+                            "radius": {
+                                "type": "number"
+                            }
+                        }
+                    },
+                    "minItems": 1
+                }
+            },
+            "required": ["city_action"]
+        },
+        {
+            "properties": {
+                "dma_action": {"$ref": "#/definitions/action"},
+                "dma_targets": {"$ref": "#/definitions/targets"}
+            },
+            "required": ["dma_action"]
+        },
+        {
+            "properties": {
+                "region_action": {"$ref": "#/definitions/action"},
+                "region_targets": {"$ref": "#/definitions/targets"}
+            },
+            "required": ["region_action"]
+        },
+        {
+            "properties": {
+                "zip_action": {"$ref": "#/definitions/action"},
+                "zip_targets": {"$ref": "#/definitions/targets"}
+            },
+            "required": ["zip_action"]
+        }
+    ]
+}
