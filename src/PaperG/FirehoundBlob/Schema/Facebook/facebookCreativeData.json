@@ -9,7 +9,10 @@
         {
             "properties": {
                 "media_url": {"type": "string"},
-                "name": {"type": "string"}
+                "name": {"type": "string"},
+                "primary": {"type": ["boolean", "null"]},
+                "multiShareEndCard": {"type": ["boolean", "null"]},
+                "multiShareOptimized": {"type": ["boolean", "null"]}
             }
         }
     ]

@@ -46,7 +46,17 @@ abstract class DataObject implements BlobInterface
         // Takes the object's subobjects and converts them to arrays
         if (!empty($this->objects)) {
             foreach($this->objects as $key => $object) {
-                $data[$key] = $object->toArray();
+                if (is_array($object)) {
+                    $data[$key] = [];
+                    /**
+                     * @var $object BlobInterface[]
+                     */
+                    foreach($object as $actualObject) {
+                        $data[$key][] = $actualObject->toArray();
+                    }
+                } elseif (!is_array($object)) {
+                    $data[$key] = $object->toArray();
+                }
             }
         }
 
@@ -59,7 +69,16 @@ abstract class DataObject implements BlobInterface
         // This converts associative arrays into their object representations, stores them in `$objects`
         if (!empty($this->objectKeys)) {
             foreach($this->objectKeys as $key => $objectName) {
-                if (isset($array[$key])) {
+                if (is_array($objectName)) {
+                    $objectName = $objectName[0];
+                    $this->objects[$key] = [];
+                    if (isset($array[$key]) && is_array($array[$key])) {
+                        foreach($array[$key] as $arrayObject) {
+                            $this->objects[$key][] = new $objectName($arrayObject);
+                        }
+                        unset($this->data[$key]);
+                    }
+                } elseif (isset($array[$key])) {
                     $this->objects[$key] = new $objectName($array[$key]);
                     unset($this->data[$key]);
                 }

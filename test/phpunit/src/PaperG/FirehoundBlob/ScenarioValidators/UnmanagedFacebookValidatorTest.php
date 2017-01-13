@@ -118,7 +118,10 @@ class UnmanagedFacebookValidatorTest extends \FirehoundBlobTestCase
         $results = $this->sut->isValidCreateBlob($mockScenarioBlob);
 
         $this->assertEquals(
-            '[adAccountId] Integer value found, but a string is required. '
+            '[status] Does not have a value in the enumeration ["active","inactive"]. '
+            . '[status] String value found, but a null is required. '
+            . '[status] Failed to match exactly one schema. '
+            . '[adAccountId] Integer value found, but a string is required. '
             . '[pageId] Array value found, but a string or a number is required. '
             . '[accessToken] Array value found, but a string is required. '
             . '[budget.amount] String value found, but a number is required. '
@@ -127,7 +130,6 @@ class UnmanagedFacebookValidatorTest extends \FirehoundBlobTestCase
             . '[budget] Object value found, but a null is required. [budget] Failed to match exactly one schema. '
             . '[adSets[0]] NULL value found, but an object is required. [adSets] Array value found, but a null is required. '
             . '[adSets] Failed to match exactly one schema. '
-            . '[status] Does not have a value in the enumeration ["active","inactive"]. '
             . '[] Failed to match all schemas.',
             $results->getMessage()
         );
@@ -160,7 +162,9 @@ class UnmanagedFacebookValidatorTest extends \FirehoundBlobTestCase
 
         $results = $this->sut->isValidUpdateBlob($mockScenarioBlob);
         $this->assertEquals(
-            '[adAccountId] Integer value found, but a string is required. '
+            '[status] Does not have a value in the enumeration ["active","inactive"]. '
+            . '[status] String value found, but a null is required. [status] Failed to match exactly one schema. '
+            . '[adAccountId] Integer value found, but a string is required. '
             . '[pageId] Array value found, but a string or a number is required. '
             . '[accessToken] Array value found, but a string is required. '
             . '[budget.amount] String value found, but a number is required. '
@@ -171,10 +175,7 @@ class UnmanagedFacebookValidatorTest extends \FirehoundBlobTestCase
             . '[adSets] Array value found, but a null is required. [adSets] Failed to match exactly one schema. '
             . '[creatives[0]] NULL value found, but an object is required. '
             . '[creatives[0]] Failed to match exactly one schema. '
-            . '[creatives] Array value found, but a null is required. [creatives] Failed to match exactly one schema. '
-            . '[status] Does not have a value in the enumeration ["active","inactive"]. '
-            . '[status] String value found, but a null is required. [status] Failed to match exactly one schema. '
-            . '[] Failed to match all schemas.',
+            . '[creatives] Array value found, but a null is required. [creatives] Failed to match exactly one schema.',
             $results->getMessage()
         );
 

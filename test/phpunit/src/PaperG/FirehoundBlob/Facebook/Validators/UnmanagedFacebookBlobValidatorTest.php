@@ -64,7 +64,7 @@ class UnmanagedFacebookBlobValidatorTest extends \FirehoundBlobTestCase
             . "[budget.budget_type] Does not have a value in the enumeration [\"daily\"]. "
             . "[budget.type] Does not have a value in the enumeration [\"dollar\"]. "
             . "[budget] Failed to match all schemas. [budget] Object value found, but a null is required. "
-            . "[budget] Failed to match exactly one schema. [] Failed to match all schemas.";
+            . "[budget] Failed to match exactly one schema.";
         $this->assertEquals($expected, $result->getMessage());
     }
 
@@ -102,8 +102,10 @@ class UnmanagedFacebookBlobValidatorTest extends \FirehoundBlobTestCase
         $result = $this->sut->validateCreate($blob);
         $this->assertFalse($result->getResult());
         $this->assertEquals(
-            '[accessToken] NULL value found, but a string is required. '
-            . '[status] Does not have a value in the enumeration ["active","inactive"]. '
+            '[status] Does not have a value in the enumeration ["active","inactive"]. '
+            . '[status] String value found, but a null is required. '
+            . '[status] Failed to match exactly one schema. '
+            . '[accessToken] NULL value found, but a string is required. '
             . '[creatives] NULL value found, but an array is required. '
             . '[] Failed to match all schemas.', $result->getMessage()
         );
