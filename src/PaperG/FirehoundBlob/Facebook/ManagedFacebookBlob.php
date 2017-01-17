@@ -6,6 +6,9 @@ use PaperG\FirehoundBlob\CampaignData\CreativeBlob;
 use PaperG\FirehoundBlob\DataObject;
 use PaperG\FirehoundBlob\Facebook\AdSets\ManagedFacebookAdSet;
 use PaperG\FirehoundBlob\Facebook\Fields\ManagedFacebookBlobFields;
+use PaperG\FirehoundBlob\Facebook\Targeting\FacebookAudienceTargeting;
+use PaperG\FirehoundBlob\Facebook\Targeting\FacebookDemographicTargeting;
+use PaperG\FirehoundBlob\Facebook\Targeting\FacebookGeographicTargeting;
 
 /**
  * Class ManagedFacebookBlob
@@ -23,9 +26,9 @@ class ManagedFacebookBlob extends DataObject
         $this->objectKeys = [
             ManagedFacebookBlobFields::AD_SETS => ['PaperG\FirehoundBlob\Facebook\AdSets\ManagedFacebookAdSet'],
             ManagedFacebookBlobFields::CREATIVES => ['PaperG\FirehoundBlob\Facebook\FacebookCreative'],
-            ManagedFacebookBlobFields::AUDIENCE_TARGETING => 'PaperG\FirehoundBlob\AppNexus\AppNexusDaypartTargeting',
-            ManagedFacebookBlobFields::GEOGRAPHIC_TARGETING => 'PaperG\FirehoundBlob\CampaignData\CampaignGeoTargetingData',
-            ManagedFacebookBlobFields::DEMOGRAPHIC_TARGETING => 'PaperG\FirehoundBlob\AppNexus\AppNexusPublisherCustomization'
+            ManagedFacebookBlobFields::AUDIENCE_TARGETING => 'PaperG\FirehoundBlob\Facebook\Targeting\FacebookAudienceTargeting',
+            ManagedFacebookBlobFields::GEOGRAPHIC_TARGETING => 'PaperG\FirehoundBlob\Facebook\Targeting\FacebookGeographicTargeting',
+            ManagedFacebookBlobFields::DEMOGRAPHIC_TARGETING => 'PaperG\FirehoundBlob\Facebook\Targeting\FacebookDemographicTargeting'
         ];
         $this->fromArray($array);
     }
@@ -91,16 +94,25 @@ class ManagedFacebookBlob extends DataObject
         return $this->safeGet($this->data, ManagedFacebookBlobFields::STATUS);
     }
 
+    /**
+     * @return FacebookAudienceTargeting
+     */
     public function getAudienceTargeting()
     {
         return $this->safeGet($this->objects, ManagedFacebookBlobFields::AUDIENCE_TARGETING);
     }
 
+    /**
+     * @return FacebookDemographicTargeting
+     */
     public function getDemographicTargeting()
     {
         return $this->safeGet($this->objects, ManagedFacebookBlobFields::DEMOGRAPHIC_TARGETING);
     }
 
+    /**
+     * @return FacebookGeographicTargeting
+     */
     public function getGeographicTargeting()
     {
         return $this->safeGet($this->objects, ManagedFacebookBlobFields::GEOGRAPHIC_TARGETING);

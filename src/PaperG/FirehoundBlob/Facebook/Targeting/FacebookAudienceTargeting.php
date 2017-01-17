@@ -3,9 +3,10 @@
 namespace PaperG\FirehoundBlob\Facebook\Targeting;
 
 
+use PaperG\FirehoundBlob\BlobInterface;
 use PaperG\FirehoundBlob\Utility;
 
-class FacebookAudienceTargeting
+class FacebookAudienceTargeting implements BlobInterface
 {
     use Utility;
 

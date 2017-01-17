@@ -156,4 +156,14 @@ class AppNexusBlob extends DataObject
     {
         return $this->safeGet($this->data, AppNexusBlobFields::TYPE);
     }
+
+    public function getIndustryId()
+    {
+        return $this->safeGet($this->data, AppNexusBlobFields::INDUSTRY_ID);
+    }
+
+    public function getUuid()
+    {
+        return $this->safeGet($this->data, AppNexusBlobFields::UUID);
+    }
 }
