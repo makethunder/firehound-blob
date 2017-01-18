@@ -11,7 +11,12 @@
     },
     "type": "object",
     "properties": {
-        "status": {"type": ["string", "null"]},
+        "status": {
+            "oneOf": [
+                {"type": "null"},
+                {"enum": ["active", "inactive"]}
+            ]
+        },
         "adAccountId": {"type": "string"},
         "pageId": {"type": ["string", "number"]},
         "accessToken": {"type": "string"},

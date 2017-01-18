@@ -4,7 +4,6 @@ namespace PaperG\FirehoundBlob\Facebook;
 
 class FacebookAdSet
 {
-
     const OPTIMIZATION_GOAL = "optimizationGoal";
     const LIFETIME_BUDGET = "lifetimeBudget";
     const BID_AMOUNT = "bidAmount";
@@ -15,28 +14,27 @@ class FacebookAdSet
     /**
      * @var int|null the ad set id if known
      */
-    private $adSetId = null;
+    protected $adSetId = null;
 
     /**
      * @var string from FacebookAds/Object/Values/AdObjectives
      */
-    private $optimizationGoal;
+    protected $optimizationGoal;
 
     /**
      * @var int amount to bid in cents
      */
-    private $bidAmount;
+    protected $bidAmount;
 
     /**
-     * @var string[] from FacebookAds/Object/Values/PageTypes.  At least one must be provided, because otherwise we
-     * have no easy way to differentiate our ad sets/placements
+     * @var []
      */
-    private $placements;
+    protected $placements;
 
     /**
      * @var string
      */
-    private $type;
+    protected $type;
 
     /**
      * @param int $bidAmount

@@ -9,8 +9,8 @@ class UnmanagedFacebookBlobValidator extends JsonValidator
 {
     const RELATIVE_PATH = '/../../Schema/Facebook/unmanagedFacebookBlob.json';
     const RELATIVE_CREATE_PATH = '/../../Schema/Facebook/unmanagedFacebookBlobCreate.json';
-    const RELATIVE_UPDATE_PATH = '/../../Schema/Facebook/unmanagedFacebookBlobUpdate.json';
-    private $path;
+    const RELATIVE_UPDATE_PATH = '/../../Schema/Facebook/unmanagedFacebookBlob.json';
+    protected $path;
 
     protected function getSchemaPath()
     {
