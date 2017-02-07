@@ -2,7 +2,7 @@
 
 namespace PaperG\FirehoundBlob;
 
-
+use PaperG\FirehoundBlob\AppNexus\AppNexusBlob;
 use PaperG\FirehoundBlob\Dcm\UnmanagedDcmBlob;
 use PaperG\FirehoundBlob\Facebook\UnmanagedFacebookBlob;
 
@@ -73,6 +73,10 @@ class ScenarioBlob implements BlobInterface
                 break;
             case Scenario::DCM_UNMANAGED:
                 $this->blob = new UnmanagedDcmBlob($blobArray);
+                break;
+            case Scenario::AN_DESKTOP:
+            case Scenario::AN_MOBILE:
+                $this->blob = new AppNexusBlob($blobArray);
                 break;
             default:
                 break;

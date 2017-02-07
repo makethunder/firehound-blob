@@ -25,5 +25,4 @@ class AppNexusBlobFields
     const STATUS = 'status';
     const TYPE = 'type';
     const INDUSTRY_ID = 'industryId';
-    const UUID = 'uuid';
 }
