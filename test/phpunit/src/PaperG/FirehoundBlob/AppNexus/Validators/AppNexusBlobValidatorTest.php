@@ -9,6 +9,7 @@ use PaperG\FirehoundBlob\AppNexus\Fields\AppNexusDaypartTargetingFields;
 use PaperG\FirehoundBlob\AppNexus\Fields\AppNexusPublisherCustomizationFields;
 use PaperG\FirehoundBlob\AppNexus\Fields\AppNexusSegmentSettingFields;
 use PaperG\FirehoundBlob\AppNexus\Validators\AppNexusBlobValidator;
+use PaperG\FirehoundBlob\AppNexus\Values\AppNexusBlobType;
 use PaperG\FirehoundBlob\CampaignData\CampaignGeotargetingDataFields;
 use PaperG\FirehoundBlob\CampaignData\Creative;
 use PaperG\FirehoundBlob\CampaignData\Fields\CreativeBlobFields;
@@ -280,7 +281,8 @@ class AppNexusBlobValidatorTest extends \FirehoundBlobTestCase
             AppNexusBlobFields::CREATIVE => [
                 Creative::ADTAG_JAVASCRIPT_SECURE => '',
                 Creative::ADTAG_JAVASCRIPT_INSECURE => ''
-            ]
+            ],
+            AppNexusBlobFields::INDUSTRY_ID => 1
         ];
         $anBlob = new AppNexusBlob($array);
         $scenarioBlob = new ScenarioBlob();
@@ -289,4 +291,23 @@ class AppNexusBlobValidatorTest extends \FirehoundBlobTestCase
         $this->assertTrue($result->getResult());
     }
 
+    public function testInvalidTypeReturnsFalse()
+    {
+        $array = [AppNexusBlobFields::TYPE => "bvlah"];
+        $anBlob = new AppNexusBlob($array);
+        $scenarioBlob = new ScenarioBlob();
+        $scenarioBlob->setBlob($anBlob);
+        $result = $this->sut->isValidCreateBlob($scenarioBlob);
+        $this->assertFalse($result->getResult());
+    }
+
+    public function testValidTypeReturnsTrue()
+    {
+        $array = [AppNexusBlobFields::TYPE => AppNexusBlobType::DESKTOP];
+        $anBlob = new AppNexusBlob($array);
+        $scenarioBlob = new ScenarioBlob();
+        $scenarioBlob->setBlob($anBlob);
+        $result = $this->sut->isValidCreateBlob($scenarioBlob);
+        $this->assertTrue($result->getResult());
+    }
 } 

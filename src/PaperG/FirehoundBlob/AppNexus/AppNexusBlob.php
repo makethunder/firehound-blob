@@ -150,7 +150,7 @@ class AppNexusBlob extends DataObject
     /**
      * Mobile vs desktop
      *
-     * @return null
+     * @return string from AppNexusBlobType
      */
     public function getType()
     {

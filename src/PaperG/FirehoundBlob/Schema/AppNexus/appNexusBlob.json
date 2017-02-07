@@ -39,6 +39,12 @@
         "normalSegments": {"$ref": "#/definitions/segmentSetting"},
         "startDate": {"type": "number"},
         "status":{"type": "string"},
-        "type": {"type": "string"}
+        "type": {
+            "type": {
+                "enum":["desktop", "mobile"]
+            }
+        },
+        "uuid": {"type": "string"},
+        "industryId": {"type": "number"}
     }
 }
