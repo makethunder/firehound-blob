@@ -37,9 +37,13 @@ class Budget implements BlobInterface
 
     public function __construct($amount, $amountType = null, $budgetType = null)
     {
-        $this->amount = $amount;
-        $this->amountType = isset($amountType) ? $amountType : self::AMOUNT_TYPE_IMPRESSION;
-        $this->budgetType = isset($budgetType) ? $budgetType : self::BUDGET_TYPE_LIFETIME;
+        if (is_array($amount)) { //Hack
+            $this->fromArray($amount);
+        } else {
+            $this->amount = $amount;
+            $this->amountType = isset($amountType) ? $amountType : self::AMOUNT_TYPE_IMPRESSION;
+            $this->budgetType = isset($budgetType) ? $budgetType : self::BUDGET_TYPE_LIFETIME;
+        }
     }
 
     public function toAssociativeArray()
