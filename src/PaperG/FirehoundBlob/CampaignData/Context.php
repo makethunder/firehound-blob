@@ -30,6 +30,8 @@ class Context
     CONST FACEBOOK_CONTEXT          = "facebookContext";
     const FACEBOOK_AD_TYPE          = 'facebookAdType';
 
+    CONST DEDICATED_PLATFORM        = "dedicatedPlatform";
+
     //These are values used mostly by AppNexus
     CONST PUBLICATION_NAME          = "publicationName"; //string
     CONST PUBLICATION_ID            = "publicationId"; //int
@@ -275,5 +277,21 @@ class Context
     public function setFacebookContext($facebookContext)
     {
         self::setValueByKey(self::FACEBOOK_CONTEXT, $facebookContext);
+    }
+
+    /**
+    * @return boolean
+    */
+    public function getDedicatedPlatform()
+    {
+        return self::getValueByKey(self::DEDICATED_PLATFORM);
+    }
+
+    /**
+    * @return null
+    */
+    public function setDedicatedPlatform($dedicatedPlatform)
+    {
+        self::setValueByKey(self::DEDICATED_PLATFORM, $dedicatedPlatform);
     }
 }
