@@ -44,7 +44,6 @@
                 "enum":["desktop", "mobile"]
             }
         },
-        "uuid": {"type": "string"},
         "industryId": {"type": "number"}
     }
 }
