@@ -161,4 +161,13 @@ class AppNexusBlob extends DataObject
     {
         return $this->safeGet($this->data, AppNexusBlobFields::INDUSTRY_ID);
     }
+
+    /**
+     *
+     * @return string from AppNexusCreativeDistributionTypes
+     */
+    public function getCreativeDistributionType()
+    {
+        return $this->safeGet($this->data, AppNexusBlobFields::CREATIVE_DISTRIBUTION_TYPE);
+    }
 }
