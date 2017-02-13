@@ -25,4 +25,5 @@ class AppNexusBlobFields
     const STATUS = 'status';
     const TYPE = 'type';
     const INDUSTRY_ID = 'industryId';
+    const CREATIVE_DISTRIBUTION_TYPE = 'creativeDistributionType';
 }
