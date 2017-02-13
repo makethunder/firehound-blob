@@ -44,6 +44,16 @@
                 "enum":["desktop", "mobile"]
             }
         },
-        "industryId": {"type": "number"}
+        "industryId": {"type": "number"},
+        "creativeDistributionType" : {
+            "oneOf": [
+                {
+                    "type":{
+                        "enum":["even", "ctr-optimized"]
+                    }
+                },
+                {"type": "null"}
+            ]
+        }
     }
 }
