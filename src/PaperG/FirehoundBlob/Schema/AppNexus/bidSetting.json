@@ -3,37 +3,38 @@
     "type": "object",
     "properties": {
         "bidType": {
-            "type": "string"
+            "type": ["string", "null"]
         },
         "cpcGoal": {
-            "type": "number"
+            "type": ["number", "null"]
         },
         "baseBid": {
-            "type": "number"
+            "type": ["number", "null"]
         },
         "bidMultiplier": {
-            "type": "number"
+            "type": ["number", "null"]
         },
         "learnOverrideType": {
-            "type": "string"
+            "type": ["string", "null"]
         },
         "learnOverrideImpressionLimit": {
-            "type": "number"
+            "type": ["number", "null"]
         },
         "cpmMin": {
-            "type": "number"
+            "type": ["number", "null"]
         },
         "cpmMax": {
-            "type": "number"
+            "type": ["number", "null"]
         },
         "baseCpmBidValue": {
-            "type": "number"
+            "type": ["number", "null"]
         },
         "cadenceModifierEnabled": {
-            "type": "boolean"
+            "type": ["boolean", "null"]
         },
         "cadenceType": {
-            "type": "string"
+            "type": ["string", "null"]
         }
     }
 }
+
