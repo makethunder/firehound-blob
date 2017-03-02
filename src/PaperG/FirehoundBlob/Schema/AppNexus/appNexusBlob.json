@@ -11,8 +11,8 @@
         "segmentSetting": {"$ref": "publisherCustomization.json"}
     },
     "properties": {
-        "applyAudienceBlacklist":{"type": "boolean"},
-        "applyNormalBlacklist":{"type": "boolean"},
+        "applyAudienceBlacklist":{"type": ["boolean", "null"]},
+        "applyNormalBlacklist":{"type": ["boolean", "null"]},
         "audienceGroupIds":{"type": "array", "items": {"type":"number"}},
         "bidSetting": {"$ref": "#/definitions/bidSetting"},
         "budget": {"$ref": "#/definitions/budget"},
@@ -35,8 +35,18 @@
         "publicationId": {"type": "number"},
         "publicationName": {"type": "string"},
         "publisherCustomizations": {"$ref": "#/definitions/publisherCustomizations"},
-        "audienceSegments": {"$ref": "#/definitions/segmentSetting"},
-        "normalSegments": {"$ref": "#/definitions/segmentSetting"},
+        "audienceSegments": {
+            "oneOf":[
+                {"$ref": "#/definitions/segmentSetting"},
+                {"type": "null"}
+            ]
+        },
+        "normalSegments": {
+            "oneOf":[
+                {"$ref": "#/definitions/segmentSetting"},
+                {"type": "null"}
+            ]
+        },
         "startDate": {"type": "number"},
         "status":{"type": "string"},
         "type": {
@@ -57,3 +67,4 @@
         }
     }
 }
+
