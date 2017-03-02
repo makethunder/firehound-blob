@@ -59,8 +59,10 @@ class AppNexusBlobValidatorTest extends \FirehoundBlobTestCase
                 AppNexusBidSettingFields::BID_TYPE => "predicted"
             ],
             AppNexusBlobFields::CREATIVE => [
-                CreativeBlobFields::ADTAG_JAVASCRIPT_SECURE => '',
-                CreativeBlobFields::ADTAG_JAVASCRIPT_INSECURE => ''
+                CreativeBlobFields::ADTAG_JAVASCRIPT_SECURE => [
+                    "medium_rectangle" => "ad tag"
+                ],
+                CreativeBlobFields::ADTAG_JAVASCRIPT_INSECURE => null
             ]
         ];
         $anBlob = new AppNexusBlob($array);

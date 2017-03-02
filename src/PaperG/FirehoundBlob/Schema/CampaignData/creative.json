@@ -2,10 +2,18 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "properties": {
-        "adtagJavascriptSecure": {"type": ["string", "null"]},
-        "adtagJavascriptInsecure":{"type": ["string", "null"]},
-        "adtagIframeSecure":{"type": ["string", "null"]},
-        "adtagIframeInsecure":{"type": ["string", "null"]},
+        "adtagJavascriptSecure": {
+            "type": ["object", "null"]
+        },
+        "adtagJavascriptInsecure":{
+            "type": ["object", "null"]
+        },
+        "adtagIframeSecure":{
+            "type": ["object", "null"]
+        },
+        "adtagIframeInsecure":{
+            "type": ["object", "null"]
+        },
         "mediaUrl":{"type": ["string", "null"]},
         "callToAction":{"type": ["string", "null"]},
         "message":{"type": ["string", "null"]},
