@@ -26,6 +26,51 @@ class AppNexusBlobValidatorTest extends \FirehoundBlobTestCase
         $this->sut = new AppNexusBlobValidator();
     }
 
+    public function testIsValidCreateDaypartReturnsTrue()
+    {
+        $array = [
+            AppNexusBlobFields::START_DATE => 1234,
+            AppNexusBlobFields::END_DATE => 4312,
+            AppNexusBlobFields::STATUS => '',
+            AppNexusBlobFields::AUDIENCE_GROUP_IDS=> [],
+            AppNexusBlobFields::LANGUAGES => [],
+            AppNexusBlobFields::APPLY_AUDIENCE_BLACKLIST => true,
+            AppNexusBlobFields::APPLY_NORMAL_BLACKLIST => false,
+            AppNexusBlobFields::GEOGRAPHIC_TARGETING => [
+                CampaignGeotargetingDataFields::COUNTRY_ACTION => "include",
+                CampaignGeotargetingDataFields::COUNTRY_TARGETS => [1],
+            ],
+            AppNexusBlobFields::DAYPART_TARGETING => [
+            ],
+            AppNexusBlobFields::CUSTOMIZATION_NAME => 'DEX',
+            AppNexusBlobFields::PUBLISHER_CUSTOMIZATIONS => [
+                AppNexusPublisherCustomizationFields::INDUSTRY_TO_QUERY_STRING => true
+            ],
+            AppNexusBlobFields::AUDIENCE_SEGMENTS => [
+                AppNexusSegmentSettingFields::ADD => [],
+                AppNexusSegmentSettingFields::REMOVE => []
+            ],
+            AppNexusBlobFields::NORMAL_SEGMENTS => [
+                AppNexusSegmentSettingFields::ADD => [],
+                AppNexusSegmentSettingFields::REMOVE => []
+            ],
+            AppNexusBlobFields::BID_SETTING => [
+                AppNexusBidSettingFields::BID_TYPE => "predicted"
+            ],
+            AppNexusBlobFields::CREATIVE => [
+                CreativeBlobFields::ADTAG_JAVASCRIPT_SECURE => [
+                    "medium_rectangle" => "ad tag"
+                ],
+                CreativeBlobFields::ADTAG_JAVASCRIPT_INSECURE => null
+            ]
+        ];
+        $anBlob = new AppNexusBlob($array);
+        $scenarioBlob = new ScenarioBlob();
+        $scenarioBlob->setBlob($anBlob);
+        $result = $this->sut->isValidCreateBlob($scenarioBlob);
+        $this->assertEquals('', $result->getMessage());
+        $this->assertTrue($result->getResult());
+    }
     public function testIsValidCreateReturnsTrue()
     {
         $array = [
