@@ -2,7 +2,6 @@
 
 namespace PaperG\FirehoundBlob\Facebook;
 
-use PaperG\FirehoundBlob\CampaignData\CreativeBlob;
 use PaperG\FirehoundBlob\DataObject;
 use PaperG\FirehoundBlob\Facebook\AdSets\ManagedFacebookAdSet;
 use PaperG\FirehoundBlob\Facebook\Fields\ManagedFacebookBlobFields;
@@ -57,7 +56,7 @@ class ManagedFacebookBlob extends DataObject
     }
 
     /**
-     * @return CreativeBlob[]
+     * @return FacebookCreative[]
      */
     public function getCreatives()
     {

@@ -104,6 +104,11 @@ class FacebookAdSet
         return $this->type;
     }
 
+    public function toArray()
+    {
+        return $this->toAssociativeArray();
+    }
+
     public function toAssociativeArray()
     {
         return array(
