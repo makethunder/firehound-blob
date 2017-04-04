@@ -54,7 +54,7 @@
                 "enum":["desktop", "mobile"]
             }
         },
-        "industryId": {"type": "number"},
+        "industryId": {"type": ["number", "null"]},
         "creativeDistributionType" : {
             "oneOf": [
                 {
