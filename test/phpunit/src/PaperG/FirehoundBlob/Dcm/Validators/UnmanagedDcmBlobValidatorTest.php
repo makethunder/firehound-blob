@@ -3,6 +3,7 @@
 namespace PaperG\Common\Test\Dcm\Validators;
 
 use PaperG\FirehoundBlob\Dcm\UnmanagedDcmBlob;
+use PaperG\FirehoundBlob\Dcm\Validators\DcmCreativeAssetValidator;
 use PaperG\FirehoundBlob\Dcm\Validators\UnmanagedDcmBlobValidator;
 use PaperG\FirehoundBlob\ScenarioBlob;
 
@@ -15,26 +16,35 @@ class UnmanagedDcmBlobValidatorTest extends \FirehoundBlobTestCase
     private $mockValidator;
 
     public function setUp() {
-        $this->mockValidator = $this->buildMock('PaperG\FirehoundBlob\Dcm\Validators\DcmCreativeAssetValidator');
+        $this->mockValidator = new DcmCreativeAssetValidator();
         $this->sut = new UnmanagedDcmBlobValidator($this->mockValidator);
     }
 
     public function testIsValidCreateBlob() {
-        $mockValidationResult = $this->buildMock('PaperG\FirehoundBlob\ScenarioValidators\ValidationResult');
-        $this->addExpectation($mockValidationResult, $this->once(), 'getResult', null, true);
         $mockCreativeAsset = $this->buildMock('PaperG\FirehoundBlob\Dcm\DcmCreativeAsset');
+        $mockCreativeAssetArray = [
+            "imageUrl" => "image url",
+            "uuid" => "blah",
+            "adTag" => "blah blah"
+        ];
+        $this->addExpectation($mockCreativeAsset, $this->atLeastOnce(), 'toArray', null, $mockCreativeAssetArray);
+        $this->addExpectation($mockCreativeAsset, $this->atLeastOnce(), 'getImageUrl', null, "image url");
+        $this->addExpectation($mockCreativeAsset, $this->atLeastOnce(), 'getAdTag', null, "blah blah");
         $mockAssets = [$mockCreativeAsset];
-
-        $this->addExpectation($this->mockValidator, $this->once(), 'isValidCreate', null, $mockValidationResult);
 
         $dcmBlob = new UnmanagedDcmBlob();
         $dcmBlob->setAdvertiserId(1234);
         $dcmBlob->setCreativeAssets($mockAssets);
         $dcmBlob->setPublicationId(1234);
+        $dcmBlob->setPlacelocalCampaignId(4321);
+        $dcmBlob->setStatusCallbackUrl('http://www.google.com/');
+        $dcmBlob->setStatusCallbackHeaders(["url" => "url", "auth" => "auth"]);
 
         $testBlob = new ScenarioBlob();
         $testBlob->setBlob($dcmBlob);
-        $this->sut->isValidCreateBlob($testBlob);
+        $result = $this->sut->isValidCreateBlob($testBlob);
+        $this->assertTrue($result->getResult());
+        $this->assertEmpty($result->getMessage());
     }
 
     public function testIsValidUpdateBlob()
@@ -46,9 +56,13 @@ class UnmanagedDcmBlobValidatorTest extends \FirehoundBlobTestCase
         $mockCreativeAsset = $this->buildMock('PaperG\FirehoundBlob\Dcm\DcmCreativeAsset');
         $this->addExpectation($mockCreativeAsset, $this->atLeastOnce(), 'toArray', null, $assetArray);
         $mockAssets = [$mockCreativeAsset];
-        $mockValidationResult = $this->buildMock('PaperG\FirehoundBlob\ScenarioValidators\ValidationResult');
-        $this->addExpectation($mockValidationResult, $this->once(), 'getResult', null, true);
-        $this->addExpectation($this->mockValidator, $this->once(), 'isValidUpdate', null, $mockValidationResult);
+        $mockCreativeAssetArray = [
+            "uuid" => "blah",
+            "adTag" => "blah blah"
+        ];
+        $this->addExpectation($mockCreativeAsset, $this->atLeastOnce(), 'toArray', null, $mockCreativeAssetArray);
+        $this->addExpectation($mockCreativeAsset, $this->atLeastOnce(), 'getAdTag', null, "blah blah");
+
         $dcmBlob = new UnmanagedDcmBlob();
         $dcmBlob->setPlacelocalCampaignId(321);
         $dcmBlob->setAdvertiserId(1234);
