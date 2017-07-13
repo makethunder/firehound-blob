@@ -10,6 +10,7 @@ class FacebookAdSet
     const PLACEMENTS = "placements";
     const AD_SET_ID = "adSetId";
     const TYPE = "type";
+    const IS_AUTO_BID = "isAutoBid";
 
     /**
      * @var int|null the ad set id if known
@@ -35,6 +36,11 @@ class FacebookAdSet
      * @var string
      */
     protected $type;
+
+    /**
+     * @var bool
+     */
+    protected $isAutoBid;
 
     /**
      * @param int $bidAmount
@@ -104,6 +110,16 @@ class FacebookAdSet
         return $this->type;
     }
 
+    public function setAutoBid($isAuto)
+    {
+        $this->isAutoBid = $isAuto;
+    }
+
+    public function isAutoBid()
+    {
+        return $this->isAutoBid;
+    }
+
     public function toArray()
     {
         return $this->toAssociativeArray();
@@ -116,17 +132,22 @@ class FacebookAdSet
             self::BID_AMOUNT => $this->bidAmount,
             self::PLACEMENTS => $this->placements,
             self::AD_SET_ID => $this->adSetId,
-            self::TYPE => $this->type
+            self::TYPE => $this->type,
+            self::IS_AUTO_BID => $this->isAutoBid
         );
     }
 
     public function fromAssociativeArray($array)
     {
-        $this->optimizationGoal = isset($array[self::OPTIMIZATION_GOAL]) ? $array[self::OPTIMIZATION_GOAL] : null;
+        $this->optimizationGoal = isset($array[self::OPTIMIZATION_GOAL]) 
+            ? $array[self::OPTIMIZATION_GOAL] : null;
         $this->bidAmount = isset($array[self::BID_AMOUNT]) ? $array[self::BID_AMOUNT] : null;
         $this->placements = isset($array[self::PLACEMENTS]) ? $array[self::PLACEMENTS] : null;
         $this->adSetId = isset($array[self::AD_SET_ID]) ? $array[self::AD_SET_ID] : null;
         $this->type = isset($array[self::TYPE]) ? $array[self::TYPE] : null;
+        $this->isAutoBid = isset($array[self::IS_AUTO_BID]) || array_key_exists(
+                self::IS_AUTO_BID, $array
+        ) ? $array[self::IS_AUTO_BID] : null;
     }
 
     /**

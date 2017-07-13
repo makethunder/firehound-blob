@@ -13,6 +13,7 @@
             }
         },
         "adSetId": {"type": ["string", "null"]},
-        "type": {"type":["string", "null"]}
+        "type": {"type":["string", "null"]},
+        "isAutoBid": {"type": ["boolean", "null"]}
     }
 }
