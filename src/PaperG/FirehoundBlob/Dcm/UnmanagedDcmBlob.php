@@ -49,10 +49,9 @@ class UnmanagedDcmBlob implements BlobInterface
     public function toArray()
     {
         $assets =  [];
-        foreach ($this->creativeAssets as $asset) {
+        foreach($this->creativeAssets as $asset) {
             $assets[] = $asset->toArray();
         }
-
         return [
             self::PUBLICATION_ID => $this->publicationId,
             self::GOOGLE_ADVERTISER_ID => $this->advertiserId,
