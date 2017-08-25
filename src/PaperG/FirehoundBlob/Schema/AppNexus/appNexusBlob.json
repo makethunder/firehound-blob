@@ -64,7 +64,8 @@
                 },
                 {"type": "null"}
             ]
-        }
+        },
+        "throttleMode":{"type": ["boolean", "null"]}
     }
 }
 

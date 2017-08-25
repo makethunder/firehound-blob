@@ -170,4 +170,9 @@ class AppNexusBlob extends DataObject
     {
         return $this->safeGet($this->data, AppNexusBlobFields::CREATIVE_DISTRIBUTION_TYPE);
     }
+
+    public function isThrottled()
+    {
+        return $this->safeGet($this->data, AppNexusBlobFields::THROTTLE_MODE, false);
+    }
 }
