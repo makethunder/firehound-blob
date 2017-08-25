@@ -175,4 +175,9 @@ class AppNexusBlob extends DataObject
     {
         return $this->safeGet($this->data, AppNexusBlobFields::THROTTLE_MODE, false);
     }
+
+    public function isMobileThrottled()
+    {
+        return $this->safeGet($this->data, AppNexusBlobFields::THROTTLE_MODE_MOBILE, false);
+    }
 }
