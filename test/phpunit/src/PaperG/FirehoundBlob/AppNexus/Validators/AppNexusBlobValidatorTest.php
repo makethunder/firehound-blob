@@ -329,7 +329,8 @@ class AppNexusBlobValidatorTest extends \FirehoundBlobTestCase
                 Creative::ADTAG_JAVASCRIPT_SECURE => '',
                 Creative::ADTAG_JAVASCRIPT_INSECURE => ''
             ],
-            AppNexusBlobFields::INDUSTRY_ID => 1
+            AppNexusBlobFields::INDUSTRY_ID => 1,
+            AppNexusBlobFields::THROTTLE_MODE => false
         ];
         $anBlob = new AppNexusBlob($array);
         $scenarioBlob = new ScenarioBlob();
