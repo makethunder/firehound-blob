@@ -2,39 +2,40 @@
 
 namespace PaperG\FirehoundBlob\CampaignData;
 
+use PaperG\FirehoundBlob\AppNexus\ExchangeCampaign;
+use PaperG\FirehoundBlob\AppNexus\AppNexusDataIncludeFrame;
 use PaperG\FirehoundBlob\CampaignData\Context\FacebookContext;
-//TODO: Pull these out of PlaceLocal or otherwise abstract them
-use PaperG\Common\AppNexusDataIncludeFrame;
-use PaperG\PlaceLocal\API\AppNexus\ExchangeCampaign;
-use PaperG\PlaceLocal\Common\CampaignAudienceGroups;
 
 class Context
 {
     /* @var Array $values An associative array of values */
     protected $values;
 
-    CONST STATUS_ACTIVE       = "active";
-    CONST STATUS_INACTIVE     = "inactive";
+    const STATUS_ACTIVE = "active";
+    const STATUS_INACTIVE = "inactive";
 
     //These are values used for most exchanges
-    CONST ADVERTISER_ID              = "advertiserId"; //int
-    CONST ADVERTISER_NAME            = "advertiserName"; //string
-    CONST CAMPAIGN_ID                = "campaignId"; //int
-    CONST SMART_GROUP_ID             = "smartGroupId"; //int
-    CONST INDUSTRY_ID                = "industryId"; //int
-    CONST FROZEN                     = "frozen"; //bool
-    CONST STATUS                     = "status"; //Expected values are "active", "inactive", todo: perhaps promote this as a full field
-    CONST LANGUAGES                  = "languages"; //int array
-    CONST AUDIENCE_GROUPS            = "audienceGroups"; //CampaignAudienceGroups
-    CONST APPNEXUS_OBJECT_INCLUSIONS = "appnexusObjectInclusions"; //an AppNexus specific component to specify which objects to update
-    CONST FACEBOOK_CONTEXT          = "facebookContext";
-    const FACEBOOK_AD_TYPE          = 'facebookAdType';
+    const ADVERTISER_ID = "advertiserId"; //int
+    const ADVERTISER_NAME = "advertiserName"; //string
+    const CAMPAIGN_ID = "campaignId"; //int
+    const SMART_GROUP_ID = "smartGroupId"; //int
+    const INDUSTRY_ID = "industryId"; //int
+    const FROZEN = "frozen"; //bool
+    const STATUS = "status"; //Expected values are "active", "inactive", todo: perhaps promote this as a full field
+    const LANGUAGES = "languages"; //int array
+    const AUDIENCE_GROUPS = "audienceGroups"; //CampaignAudienceGroups
+    const APPNEXUS_OBJECT_INCLUSIONS = "appnexusObjectInclusions"; //an AppNexus specific component to specify which objects to update
+    const FACEBOOK_CONTEXT = "facebookContext";
+    const FACEBOOK_AD_TYPE = 'facebookAdType';
 
     //These are values used mostly by AppNexus
-    CONST PUBLICATION_NAME          = "publicationName"; //string
-    CONST PUBLICATION_ID            = "publicationId"; //int
+    const PUBLICATION_NAME = "publicationName"; //string
+    const PUBLICATION_ID = "publicationId"; //int
 
-    CONST APPNEXUS_VALUES           = "appnexusValues"; //this is a PaperG\PlaceLocal\API\AppNexus\ExchangeCampaign
+    const APPNEXUS_VALUES = "appnexusValues"; //this is a PaperG\PlaceLocal\API\AppNexus\ExchangeCampaign
+
+    const THROTTLED = 'throttled';
+    const MOBILE_THROTTLED = 'mobileThrottled';
 
     public function __construct($values = Array())
     {
@@ -45,29 +46,25 @@ class Context
     {
         $assocArray = Array();
 
-        foreach ($this->values as $currKey => $currValue)
-        {
+        foreach ($this->values as $currKey => $currValue) {
             $assocArray[$currKey] = $currValue;
         }
 
         /* @var ExchangeCampaign $exchangeCampaign */
         $exchangeCampaign = self::getValueByKey(self::APPNEXUS_VALUES);
-        if (!is_null($exchangeCampaign))
-        {
+        if (!is_null($exchangeCampaign)) {
             $assocArray[self::APPNEXUS_VALUES] = $exchangeCampaign->toAssociativeArray();
         }
 
         /* @var CampaignAudienceGroups $audienceGroups */
         $audienceGroups = self::getValueByKey(self::AUDIENCE_GROUPS);
-        if (!is_null($audienceGroups))
-        {
+        if (!is_null($audienceGroups)) {
             $assocArray[self::AUDIENCE_GROUPS] = $audienceGroups->toAssociativeArray();
         }
 
         /* @var AppNexusDataIncludeFrame $appnexusObjectList */
         $appnexusObjectList = self::getValueByKey(self::APPNEXUS_OBJECT_INCLUSIONS);
-        if (!is_null($appnexusObjectList))
-        {
+        if (!is_null($appnexusObjectList)) {
             $assocArray[self::APPNEXUS_OBJECT_INCLUSIONS] = $appnexusObjectList->toAssociativeArray();
         }
 
@@ -75,8 +72,7 @@ class Context
          * @var FacebookContext $facebookContext
          */
         $facebookContext = self::getValueByKey(self::FACEBOOK_CONTEXT);
-        if (!is_null($facebookContext))
-        {
+        if (!is_null($facebookContext)) {
             $assocArray[self::FACEBOOK_CONTEXT] = $facebookContext->toAssociativeArray();
         }
 
@@ -87,34 +83,29 @@ class Context
     {
         $values = Array();
 
-        foreach ($assocArray as $currKey => $currValue)
-        {
+        foreach ($assocArray as $currKey => $currValue) {
             $values[$currKey] = $currValue;
         }
 
-        if (isset($assocArray[self::APPNEXUS_VALUES]))
-        {
+        if (isset($assocArray[self::APPNEXUS_VALUES])) {
             $exchangeCampaign = new ExchangeCampaign();
             $exchangeCampaign->fromAssociativeArray($assocArray[self::APPNEXUS_VALUES]);
             $values[self::APPNEXUS_VALUES] = $exchangeCampaign;
         }
 
-        if (isset($assocArray[self::AUDIENCE_GROUPS]))
-        {
+        if (isset($assocArray[self::AUDIENCE_GROUPS])) {
             $audienceGroups = new CampaignAudienceGroups(Array());
             $audienceGroups->fromAssociativeArray($assocArray[self::AUDIENCE_GROUPS]);
             $values[self::AUDIENCE_GROUPS] = $audienceGroups;
         }
 
-        if (isset($assocArray[self::APPNEXUS_OBJECT_INCLUSIONS]))
-        {
+        if (isset($assocArray[self::APPNEXUS_OBJECT_INCLUSIONS])) {
             $appnexusObjectList = new AppNexusDataIncludeFrame();
             $appnexusObjectList->fromAssociativeArray($assocArray[self::APPNEXUS_OBJECT_INCLUSIONS]);
             $values[self::APPNEXUS_OBJECT_INCLUSIONS] = $appnexusObjectList;
         }
 
-        if (isset($assocArray[self::FACEBOOK_CONTEXT]))
-        {
+        if (isset($assocArray[self::FACEBOOK_CONTEXT])) {
             $facebookContext = new FacebookContext();
             $facebookContext->fromAssociativeArray($assocArray[self::FACEBOOK_CONTEXT]);
             $values[self::FACEBOOK_CONTEXT] = $facebookContext;
@@ -126,12 +117,11 @@ class Context
 
     public function getValueByKey($key)
     {
-        if (empty($this->values))
-        {
+        if (empty($this->values)) {
             return null;
         }
-        else if (isset($this->values[$key]))
-        {
+
+        if (isset($this->values[$key])) {
             return $this->values[$key];
         }
 
@@ -142,8 +132,7 @@ class Context
     {
         //we make this a no-op to make it easier for blindly setting values
         //null is considered "do nothing", boolean false is considered a removal of a value
-        if (is_null($value))
-        {
+        if (is_null($value)) {
             return;
         }
 
@@ -275,5 +264,15 @@ class Context
     public function setFacebookContext($facebookContext)
     {
         self::setValueByKey(self::FACEBOOK_CONTEXT, $facebookContext);
+    }
+
+    public function isThrottled()
+    {
+        return self::getValueByKey(self::THROTTLED);
+    }
+
+    public function isMobileThrottled()
+    {
+        return self::getValueByKey(self::MOBILE_THROTTLED);
     }
 }
