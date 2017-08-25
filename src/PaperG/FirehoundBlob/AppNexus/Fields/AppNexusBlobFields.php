@@ -27,4 +27,5 @@ class AppNexusBlobFields
     const INDUSTRY_ID = 'industryId';
     const CREATIVE_DISTRIBUTION_TYPE = 'creativeDistributionType';
     const THROTTLE_MODE = 'throttleMode';
+    const THROTTLE_MODE_MOBILE = 'throttleModeMobile';
 }
