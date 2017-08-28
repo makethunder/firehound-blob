@@ -19,24 +19,32 @@ class ExchangeCampaign
     const AUD_DOMAIN_BLACKLIST = 'has_audience_domain_blacklist';
     const IMPRESSION_LIMIT = 'impression_limit';
     const BID_MULTIPLIER = 'bid_multiplier';
+    const BID_MULTIPLIER_BY_TYPE = 'bid_multiplier_by_type';
     const INDUSTRY_ID_ARRAY = "industry_id_array";
     const CENTER_POSTAL_CODE = 'center_postal_code';
     const LEARN_OVERRIDE_TYPE = 'learn_override_type';
     const CUSTOMIZATION_NAME = 'customization_name';
     const PUB_CUSTOMIZATION_ARRAY = 'publisher_customization_array';
     const DAYPART_TARGETING = 'daypart_targets';
+    const DAYPART_TIMEZONE = 'daypart_timezone';
     const AUD_SEGMENTS_TO_ADD = 'audience_segments_to_add';
     const AUD_SEGMENTS_TO_REMOVE = 'audience_segments_to_remove';
     const NORMAL_SEGMENTS_TO_ADD = 'normal_segments_to_add';
     const NORMAL_SEGMENTS_TO_REMOVE = 'normal_segments_to_remove';
     const CADENCE_MODIFIER_ENABLED = 'cadence_modifier_enabled';
+    const CADENCE_TYPE = 'cadence_type';
     const LIFETIME_IMPRESSION_BUDGET = 'lifetime_impression_budget';
-    const DAILY_IMPRESSION_BUDGET = 'daily_impression_budget';
     const ENABLE_LIFETIME_PACING = 'enable_lifetime_pacing';
+    const DAILY_IMPRESSION_BUDGET = 'daily_impression_budget';
+    const BASE_CPM_BID_VALUE = 'base_cpm_bid_value';
     const MOBILE_DAILY_IMPRESSION_BUDGET = 'mobile_daily_impression_budget';
     const MOBILE_ENABLE_LIFETIME_PACING = 'mobile_enable_lifetime_pacing';
     const MOBILE_LIFETIME_IMP_BUDGET = 'mobile_lifetime_imp_budget';
+    const MOBILE_CPM_BASE = 'mobile_cpm_base';
+    const MOBILE_CPM_MIN = 'mobile_cpm_min';
+    const MOBILE_CPM_MAX = 'mobile_cpm_max';
     const CREATIVE_DISTRIBUTION_TYPE = 'creative_distribution_type';
+    const TRUST = 'trust';
 
     protected $bidType;
     protected $cpcGoal;
@@ -84,6 +92,9 @@ class ExchangeCampaign
     protected $mobileDailyImpressionBudget = null;
     protected $mobileLifetimeImpressionBudget = null;
     protected $creativeDistributionType = null;
+    protected $mobileCpmBase = null;
+    protected $mobileCpmMin = null;
+    protected $mobileCpmMax = null;
 
     public function getIndustryIds()
     {
@@ -526,22 +537,6 @@ class ExchangeCampaign
     /**
      * @return null
      */
-    public function getMobileEnableLifetimePacing()
-    {
-        return $this->mobileEnableLifetimePacing;
-    }
-
-    /**
-     * @param null $mobileEnableLifetimePacing
-     */
-    public function setMobileEnableLifetimePacing($mobileEnableLifetimePacing)
-    {
-        $this->mobileEnableLifetimePacing = $mobileEnableLifetimePacing;
-    }
-
-    /**
-     * @return null
-     */
     public function getMobileLifetimeImpressionBudget()
     {
         return $this->mobileLifetimeImpressionBudget;
@@ -553,6 +548,70 @@ class ExchangeCampaign
     public function setMobileLifetimeImpressionBudget($mobileLifetimeImpressionBudget)
     {
         $this->mobileLifetimeImpressionBudget = $mobileLifetimeImpressionBudget;
+    }
+
+    /**
+     * @return null
+     */
+    public function getMobileCpmBase()
+    {
+        return $this->mobileCpmBase;
+    }
+
+    /**
+     * @param null $mobileCpmBase
+     */
+    public function setMobileCpmBase($mobileCpmBase)
+    {
+        $this->mobileCpmBase = $mobileCpmBase;
+    }
+
+    /**
+     * @return null
+     */
+    public function getMobileCpmMax()
+    {
+        return $this->mobileCpmMax;
+    }
+
+    /**
+     * @param null $mobileCpmMax
+     */
+    public function setMobileCpmMax($mobileCpmMax)
+    {
+        $this->mobileCpmMax = $mobileCpmMax;
+    }
+
+    /**
+     * @return null
+     */
+    public function getMobileCpmMin()
+    {
+        return $this->mobileCpmMin;
+    }
+
+    /**
+     * @param null $mobileCpmMin
+     */
+    public function setMobileCpmMin($mobileCpmMin)
+    {
+        $this->mobileCpmMin = $mobileCpmMin;
+    }
+
+    /**
+     * @return null
+     */
+    public function getMobileEnableLifetimePacing()
+    {
+        return $this->mobileEnableLifetimePacing;
+    }
+
+    /**
+     * @param null $mobileEnableLifetimePacing
+     */
+    public function setMobileEnableLifetimePacing($mobileEnableLifetimePacing)
+    {
+        $this->mobileEnableLifetimePacing = $mobileEnableLifetimePacing;
     }
 
     /**
@@ -598,7 +657,8 @@ class ExchangeCampaign
             self::AUD_SEGMENTS_TO_REMOVE => $this->audienceGroupSegmentTargetsToRemove,
             self::NORMAL_SEGMENTS_TO_ADD => $this->normalSegmentTargetsToAdd,
             self::NORMAL_SEGMENTS_TO_REMOVE => $this->normalSegmentTargetsToRemove,
-            self::ENABLE_LIFETIME_PACING => $this->enableLifetimePacing
+            self::ENABLE_LIFETIME_PACING => $this->enableLifetimePacing,
+            self::DAYPART_TIMEZONE => $this->daypartTimezone
         );
 
         if (!is_null($this->learnOverrideType)) {
@@ -613,6 +673,10 @@ class ExchangeCampaign
             $array[self::BID_MULTIPLIER] = $this->bidMultiplier;
         }
 
+        if (!is_null($this->bidMultiplierByType)) {
+            $array[self::BID_MULTIPLIER_BY_TYPE] = $this->bidMultiplierByType;
+        }
+
         if (!is_null($this->cadenceModifierEnabled)) {
             $array[self::CADENCE_MODIFIER_ENABLED] = $this->cadenceModifierEnabled;
         }
@@ -625,16 +689,36 @@ class ExchangeCampaign
             $array[self::DAILY_IMPRESSION_BUDGET] = $this->dailyImpressionBudget;
         }
 
+        if (!is_null($this->baseCpmBidValue)) {
+            $array[self::BASE_CPM_BID_VALUE] = $this->baseCpmBidValue;
+        }
+
+        if (!is_null($this->cadenceType)) {
+            $array[self::CADENCE_TYPE] = $this->cadenceType;
+        }
+
         if (!is_null($this->mobileDailyImpressionBudget)) {
             $array[self::MOBILE_DAILY_IMPRESSION_BUDGET] = $this->mobileDailyImpressionBudget;
         }
 
-        if (!is_null($this->mobileEnableLifetimePacing)) {
-            $array[self::MOBILE_ENABLE_LIFETIME_PACING] = $this->mobileEnableLifetimePacing;
-        }
-
         if (!is_null($this->mobileLifetimeImpressionBudget)) {
             $array[self::MOBILE_LIFETIME_IMP_BUDGET] = $this->mobileLifetimeImpressionBudget;
+        }
+
+        if (!is_null($this->mobileCpmBase)) {
+            $array[self::MOBILE_CPM_BASE] = $this->mobileCpmBase;
+        }
+
+        if (!is_null($this->mobileCpmMax)) {
+            $array[self::MOBILE_CPM_MAX] = $this->mobileCpmMax;
+        }
+
+        if (!is_null($this->mobileCpmMin)) {
+            $array[self::MOBILE_CPM_MIN] = $this->mobileCpmMin;
+        }
+
+        if (!is_null($this->mobileEnableLifetimePacing)) {
+            $array[self::MOBILE_ENABLE_LIFETIME_PACING] = $this->mobileEnableLifetimePacing;
         }
 
         if (!is_null($this->creativeDistributionType)) {
@@ -658,14 +742,14 @@ class ExchangeCampaign
         $this->impressionLimit = isset($array[self::IMPRESSION_LIMIT]) ? $array[self::IMPRESSION_LIMIT] : null;
         $this->industryIdArray = isset($array[self::INDUSTRY_ID_ARRAY]) ? $array[self::INDUSTRY_ID_ARRAY] : null;
         $this->daypartTargets = isset($array[self::DAYPART_TARGETING]) ? $array[self::DAYPART_TARGETING] : null;
+        $this->bidMultiplierByType = isset($array[self::BID_MULTIPLIER_BY_TYPE])
+            ? $array[self::BID_MULTIPLIER_BY_TYPE] : null;
         $this->hasNormalWhitelist = isset($array[self::NORMAL_WHITELIST]) ? $array[self::NORMAL_WHITELIST] : null;
         $this->hasAudienceWhitelist = isset($array[self::AUD_WHITELIST]) ? $array[self::AUD_WHITELIST] : null;
         $this->hasNormalBlacklist = isset($array[self::NORMAL_BLACKLIST]) ? $array[self::NORMAL_BLACKLIST] : null;
         $this->hasAudienceBlacklist = isset($array[self::AUD_BLACKLIST]) ? $array[self::AUD_BLACKLIST] : null;
         $this->learnOverrideType = isset($array[self::LEARN_OVERRIDE_TYPE]) ? $array[self::LEARN_OVERRIDE_TYPE] : null;
         $this->customizationName = isset($array[self::CUSTOMIZATION_NAME]) ? $array[self::CUSTOMIZATION_NAME] : null;
-        $this->enableLifetimePacing = isset($array[self::ENABLE_LIFETIME_PACING])
-            ? $array[self::ENABLE_LIFETIME_PACING] : null;
         $this->publisherCustomizationArray = isset($array[self::PUB_CUSTOMIZATION_ARRAY])
             ? $array[self::PUB_CUSTOMIZATION_ARRAY] : array();
         $this->hasAudienceDomainBlacklist = isset($array[self::AUD_DOMAIN_BLACKLIST])
@@ -682,16 +766,24 @@ class ExchangeCampaign
             ? $array[self::NORMAL_SEGMENTS_TO_REMOVE] : null;
         $this->cadenceModifierEnabled = isset($array[self::CADENCE_MODIFIER_ENABLED])
             ? $array[self::CADENCE_MODIFIER_ENABLED] : null;
+        $this->cadenceType = isset($array[self::CADENCE_TYPE]) ? $array[self::CADENCE_TYPE] : null;
         $this->lifetimeImpressionBudget = isset($array[self::LIFETIME_IMPRESSION_BUDGET])
             ? $array[self::LIFETIME_IMPRESSION_BUDGET] : null;
         $this->dailyImpressionBudget = isset($array[self::DAILY_IMPRESSION_BUDGET])
             ? $array[self::DAILY_IMPRESSION_BUDGET] : null;
-        $this->mobileDailyImpressionBudget = isset($array[self::MOBILE_DAILY_IMPRESSION_BUDGET])
-            ? $array[self::MOBILE_DAILY_IMPRESSION_BUDGET] : null;
-        $this->mobileEnableLifetimePacing = isset($array[self::MOBILE_ENABLE_LIFETIME_PACING])
-            ? $array[self::MOBILE_ENABLE_LIFETIME_PACING] : null;
+        $this->enableLifetimePacing = isset($array[self::ENABLE_LIFETIME_PACING])
+            ? $array[self::ENABLE_LIFETIME_PACING] : null;
+        $this->daypartTimezone = isset($array[self::DAYPART_TIMEZONE]) ? $array[self::DAYPART_TIMEZONE] : null;
+        $this->baseCpmBidValue = isset($array[self::BASE_CPM_BID_VALUE]) ? $array[self::BASE_CPM_BID_VALUE] : null;
         $this->mobileLifetimeImpressionBudget = isset($array[self::MOBILE_LIFETIME_IMP_BUDGET])
             ? $array[self::MOBILE_LIFETIME_IMP_BUDGET] : null;
+        $this->mobileDailyImpressionBudget = isset($array[self::MOBILE_DAILY_IMPRESSION_BUDGET])
+            ? $array[self::MOBILE_DAILY_IMPRESSION_BUDGET] : null;
+        $this->mobileCpmBase = isset($array[self::MOBILE_CPM_BASE]) ? $array[self::MOBILE_CPM_BASE] : null;
+        $this->mobileCpmMax = isset($array[self::MOBILE_CPM_MAX]) ? $array[self::MOBILE_CPM_MAX] : null;
+        $this->mobileCpmMin = isset($array[self::MOBILE_CPM_MIN]) ? $array[self::MOBILE_CPM_MIN] : null;
+        $this->mobileEnableLifetimePacing = isset($array[self::MOBILE_ENABLE_LIFETIME_PACING])
+            ? $array[self::MOBILE_ENABLE_LIFETIME_PACING] : null;
         $this->creativeDistributionType = isset($array[self::CREATIVE_DISTRIBUTION_TYPE])
             ? $array[self::CREATIVE_DISTRIBUTION_TYPE] : null;
     }
