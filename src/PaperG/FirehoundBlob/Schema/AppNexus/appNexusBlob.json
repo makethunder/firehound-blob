@@ -18,16 +18,7 @@
         "budget": {"$ref": "#/definitions/budget"},
         "campaignId": {"type": "number"},
         "creative": {"$ref": "#/definitions/creative"},
-        "customizationName":{
-            "oneOf": [
-                {
-                    "type":{
-                        "enum":["YPG", "DEX", ""]
-                    }
-                },
-                {"type": "null"}
-            ]
-        },
+        "customizationName":{"type": ["string", "null"]},
         "daypartTargeting": {"$ref": "#/definitions/daypartTargeting"},
         "endDate":{"type": "number"},
         "geographicTargeting":{"$ref": "#/definitions/geotargeting"},
