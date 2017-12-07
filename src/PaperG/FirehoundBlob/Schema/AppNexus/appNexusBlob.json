@@ -57,7 +57,8 @@
             ]
         },
         "throttleMode":{"type": ["boolean", "null"]},
-        "throttleModeMobile":{"type": ["boolean", "null"]}
+        "throttleModeMobile":{"type": ["boolean", "null"]},
+        "userSubmitted":{"type": ["boolean", "null"]}
     }
 }
 
