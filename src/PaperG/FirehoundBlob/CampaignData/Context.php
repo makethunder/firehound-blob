@@ -36,6 +36,7 @@ class Context
 
     const THROTTLED = 'throttled';
     const MOBILE_THROTTLED = 'mobileThrottled';
+    const USER_SUBMITTED = 'userSubmitted';
 
     public function __construct($values = Array())
     {
@@ -115,17 +116,17 @@ class Context
         return $context;
     }
 
-    public function getValueByKey($key)
+    public function getValueByKey($key, $default = null)
     {
         if (empty($this->values)) {
-            return null;
+            return $default;
         }
 
         if (isset($this->values[$key])) {
             return $this->values[$key];
         }
 
-        return null;
+        return $default;
     }
 
     public function setValueByKey($key, $value)
@@ -274,5 +275,10 @@ class Context
     public function isMobileThrottled()
     {
         return self::getValueByKey(self::MOBILE_THROTTLED);
+    }
+
+    public function isUserSubmitted()
+    {
+        return self::getValueByKey(self::USER_SUBMITTED, false);
     }
 }
