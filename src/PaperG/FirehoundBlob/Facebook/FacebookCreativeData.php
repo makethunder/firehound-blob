@@ -25,6 +25,7 @@ class FacebookCreativeData implements BlobInterface
     const NAME = "name";
     const DESCRIPTION = "description";
     const VARIATION_ID = 'variation_id';
+    const AD_UNIT_ID = 'ad_unit_id';
 
     const CURRENT_VERSION = 1;
 
@@ -68,6 +69,11 @@ class FacebookCreativeData implements BlobInterface
      * @var string
      */
     private $variationId;
+
+    /**
+     * @var string
+     */
+    private $adUnitId;
 
     /**
      * @param array|null $array
@@ -205,6 +211,11 @@ class FacebookCreativeData implements BlobInterface
         return $this->variationId;
     }
 
+    public function getAdUnitId()
+    {
+        return $this->adUnitId;
+    }
+
     /**
      * @return array
      */
@@ -219,6 +230,7 @@ class FacebookCreativeData implements BlobInterface
             self::NAME => $this->getName(),
             self::DESCRIPTION => $this->getDescription(),
             self::VARIATION_ID => $this->getVariationId(),
+            self::AD_UNIT_ID => $this->getAdUnitId(),
             self::VERSION => self::CURRENT_VERSION
         ];
     }
@@ -236,6 +248,7 @@ class FacebookCreativeData implements BlobInterface
         $this->name = $this->safeGet($array, self::NAME);
         $this->description = $this->safeGet($array, self::DESCRIPTION);
         $this->variationId = $this->safeGet($array, self::VARIATION_ID);
+        $this->adUnitId = $this->safeGet($array, self::AD_UNIT_ID);
     }
 
     //No validation yet

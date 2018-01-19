@@ -1,0 +1,29 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "definitions": {
+        "creative": {"$ref": "facebookCreative.json"}
+    },
+    "properties": {
+        "optimizationGoal": {"type": ["string", "null"]},
+        "bidAmount": {"type": ["number", "null"]},
+        "placements": {
+            "type": ["object", "null"],
+            "properties": {
+                "device_platforms": {"type": ["array", "null"]},
+                "publisher_platforms": {"type": ["array", "null"]},
+                "facebook_positions": {"type": ["array", "null"]},
+                "instagram_positions": {"type": ["array", "null"]},
+                "audience_network_positions": {"type": ["array", "null"]}
+            }
+        },
+        "adSetId": {"type": ["string", "null"]},
+        "type": {"type":["string", "null"]},
+        "isAutoBid": {"type": ["boolean", "null"]},
+        "creatives": {
+            "type": "array",
+            "items": {"$ref": "#/definitions/creative"}
+        },
+        "platformName": {"type": ["string", "null"]}
+    }
+}

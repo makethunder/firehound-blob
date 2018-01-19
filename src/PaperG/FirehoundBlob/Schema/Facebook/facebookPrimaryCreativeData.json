@@ -9,6 +9,7 @@
         "landing_page": {"type": ["string", "null"]},
         "name": {"type": ["string", "null"]},
         "description": {"type": ["string", "null"]},
-        "variation_id": {"type": ["string", "null"]}
+        "variation_id": {"type": ["string", "null"]},
+        "ad_unit_id": {"type": ["string", "null"]}
     }
 }
