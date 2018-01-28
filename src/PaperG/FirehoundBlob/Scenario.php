@@ -19,5 +19,13 @@ class Scenario
     const AN_DESKTOP_MOBILE = 'AppNexus-Desktop-Mobile';
     const DCM_UNMANAGED = "DCM-Unmanaged";
 
-    public static $validScenarios = [self::FB_MANAGED, self::FB_UNMANAGED, self::AN_DESKTOP, self::AN_MOBILE, self::AN_DESKTOP_MOBILE, self::DCM_UNMANAGED];
+    public static $validScenarios = [
+        self::FB_MANAGED,
+        self::FB_UNMANAGED,
+        self::FB_UNMANAGED_V2,
+        self::AN_DESKTOP,
+        self::AN_MOBILE,
+        self::AN_DESKTOP_MOBILE,
+        self::DCM_UNMANAGED
+    ];
 }
