@@ -4,7 +4,7 @@ namespace PaperG\FirehoundBlob;
 
 use PaperG\FirehoundBlob\AppNexus\AppNexusBlob;
 use PaperG\FirehoundBlob\Dcm\UnmanagedDcmBlob;
-use PaperG\FirehoundBlob\Facebook\ManagedFacebookBlob;
+use PaperG\FirehoundBlob\Facebook\GeneralFacebookBlob;
 use PaperG\FirehoundBlob\Facebook\UnmanagedFacebookBlob;
 
 class ScenarioBlob implements BlobInterface
@@ -72,8 +72,9 @@ class ScenarioBlob implements BlobInterface
             case Scenario::FB_UNMANAGED:
                 $this->blob = new UnmanagedFacebookBlob($blobArray);
                 break;
+            case Scenario::FB_UNMANAGED_V2:
             case Scenario::FB_MANAGED:
-                $this->blob = new ManagedFacebookBlob($blobArray);
+                $this->blob = new GeneralFacebookBlob($blobArray);
                 break;
             case Scenario::DCM_UNMANAGED:
                 $this->blob = new UnmanagedDcmBlob($blobArray);

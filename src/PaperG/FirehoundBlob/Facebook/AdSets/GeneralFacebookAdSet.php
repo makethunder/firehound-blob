@@ -39,7 +39,7 @@ class GeneralFacebookAdSet extends DataObject
     }
 
     /**
-     * @return null|FacebookCreative
+     * @return null|FacebookCreative[]
      */
     public function getCreatives()
     {
