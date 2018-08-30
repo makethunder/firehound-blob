@@ -1,0 +1,10 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/php:5.6-cli-browsers
+    steps:
+      - checkout
+      - run: sudo composer self-update
+      - run: composer install
+      - run: ./vendor/bin/phpunit
